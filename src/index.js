@@ -4,7 +4,8 @@
 import "./assets/scss/main.scss";
 import React from "react";
 import { render } from "react-dom";
-import App from "./view/app";
+import {App} from "./view/App";
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 const app = document.querySelector("#root");
 
 /**
@@ -12,7 +13,9 @@ const app = document.querySelector("#root");
  */
 const Main = () => {
     return (
-        <App/>
+        <Router>
+            <Route exact path="/" component={App}/>
+        </Router>
     );
 }
 
