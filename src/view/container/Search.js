@@ -1,35 +1,36 @@
 /**
  * Import, Variables
  */
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect} from "react";
 import {PokeList} from "./PokeList";
 import { getData } from "../../actions/helper";
-import {Context} from "../../store/GlobalStore";
+import { PokeCard } from "../components/PokeCard";
+const initialState = {
+    pokemonData: null,
+    dataFetched: false
+};
 
 /**
  * Searchbar to find a pokemon
  */
 export const Search = () => {
-    const context = useContext(Context);
-    const [pokeList, setPokeList] = useState({
-        pokemonData: null,
-        dataFetched: false,
-    });
+    const [pokeList, setPokeList] = useState(initialState);
     const [inputValue, setInputValue] = useState("");
 
 
     useEffect(() => {
         const getPokemonData = async () => {
             const data = await getData("https://pokeapi.co/api/v2/pokemon?limit=150");
-            setPokeList({
+            const newState = {
                 pokemonData: data.results,
-                dataFetched: true,
-            });
+                dataFetched: true
+            }
+            setPokeList(newState);
         }
         getPokemonData();
     }, []);
 
-    const inputHandler = e => {
+    const inputHandler = async e => {
         if (e.target.value !== "") {
             setInputValue(e.target.value);
         }
@@ -43,7 +44,6 @@ export const Search = () => {
                 dataFetched: true
             });
             context.pokemonData = data;
-            context.dataFetched = true;
         }
     };
 
@@ -52,14 +52,18 @@ export const Search = () => {
             <section className="container mb-3">
                 <div className="row">
                     <div className="col-12 searchbar">
-                        <input type="text" className="form-control" placeholder="Enter a pokemon name" onBlur={inputHandler}/>
+                        <input type="text" className="form-control" placeholder="Enter a pokemon name" onChange={inputHandler}/>
                         <button className="btn btn-success" onClick={btnHandler}>Search</button>
                     </div>
                 </div>
             </section>
-            <PokeList 
-                dataFetched={pokeList.dataFetched} 
-                pokemonData={pokeList.pokemonData}/>
+            {
+                Array.isArray(pokeList.pokemonData) ?
+                    <PokeList
+                        dataFetched={pokeList.dataFetched}
+                        pokemonData={pokeList.pokemonData}/>
+                : <PokeCard/>
+            }
         </>
     );
 }

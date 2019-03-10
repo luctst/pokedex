@@ -2,7 +2,6 @@
  * Import, Variables
  */
 import React from "react";
-import {PokeCard} from "../components/PokeCard";
 
 /**
  * Render the list of pokemon when page is loaded
@@ -15,7 +14,6 @@ export const PokeList = props => {
             <div className="row">
                 <div className="col-12 pokeList">
                 {
-                    Array.isArray(props.pokemonData) ?
                         props.pokemonData.map((el, i) => {
                             return (
                                 <div className="card" key={i}>
@@ -27,7 +25,6 @@ export const PokeList = props => {
                                 </div>
                             );
                         })
-                        : <PokeCard/>
                 }
                 </div>
             </div>
