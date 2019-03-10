@@ -2,12 +2,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    
-    p {
-        margin: 0;
-        flex: 0 0 15%;
-    }
+
     input {
         flex: 0 0 50%;
+        margin-right: 2%;
     }
 }
