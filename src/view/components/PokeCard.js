@@ -3,7 +3,9 @@
  */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getData } from "../../actions/helper";
+const style = {
+    "marginRight": "1%"
+}
 
 /**
  * Render the pokemon card with data on it.
@@ -24,6 +26,7 @@ export const PokeCard = props => {
             throw error;
         }
     }, []);
+
     const handlerType = (el, i) => {
         switch (el.type.name) {
             case "fire":
@@ -47,6 +50,9 @@ export const PokeCard = props => {
             case "grass":
                 return <span key={i} className="badge badge-pill badge-success">{el.type.name}</span>;
                 break;
+            case "dragon":
+                return <span key={i} className="badge badge-pill badge-primary">{el.type.name}</span>;
+                break;
             default:
                 break;
         }
@@ -67,6 +73,13 @@ export const PokeCard = props => {
                                     return handlerType(el, i);
                                 })
                             }</p>
+                            <p>Height: <strong>{state.pokemonData.height / 10} m</strong>.</p>
+                            <p>Weight: <strong>{state.pokemonData.weight / 10} Kg</strong>.</p>
+                            <p>Attack: 
+                                <strong style={style}>{state.pokemonData.moves.length}</strong>
+                                <Link to={`/moves/${state.pokemonData.name}`}>See more</Link>
+                            </p>
+                            <p>If you defeat this pokemon you will win <strong>{state.pokemonData.base_experience} exp</strong>.</p>
                             <p>Occurs in:</p>
                             <div className="pokeCard--left--version mb-3">
                                 {
@@ -75,7 +88,7 @@ export const PokeCard = props => {
                                     })
                                 }
                             </div>
-                            <Link to="/" className="btn btn-success">Home</Link>
+                            <button onClick={props.history.goBack} className="btn btn-success">Home</button>
                         </div>
                         <div className="pokeCard--right">
                             <img
@@ -84,7 +97,7 @@ export const PokeCard = props => {
                             />
                         </div>
                     </div>
-                };
+                }
             </div>
         </section>
     );
