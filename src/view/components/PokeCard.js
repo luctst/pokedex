@@ -3,6 +3,7 @@
  */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {getData} from "../../actions/helper";
 const style = {
     "marginRight": "1%"
 }
@@ -12,19 +13,22 @@ const style = {
  */
 export const PokeCard = props => {
     const [state, setState] = useState({ pokemonData: null, dataFetched: false });
+    const [location, setLocation] = useState({locationData: {}, locationFetched: false});
     console.log(state);
-
+    
     useEffect(() => {
-        try {
-            fetch(`https://pokeapi.co/api/v2/pokemon/${props.match.params.name}`)
-                .then(data => data.json())
-                .then(dataParsed => setState({
-                    pokemonData: dataParsed,
-                    dataFetched: true
-                }));
-        } catch (error) {
-            throw error;
+        const fetchAllPokemonData = async () => {
+            const data = await getData(`https://pokeapi.co/api/v2/pokemon/${props.match.params.name}`);
+            setState({pokemonData:data, dataFetched:true});
+            fetchPokemonLocation(`https://pokeapi.co/api/v2/location/${data.id}`);
+        };
+        
+        const fetchPokemonLocation = async bdd => {
+            const data = await getData(bdd);
+            setLocation({locationData: data, locationFetched:true});
         }
+
+        fetchAllPokemonData();
     }, []);
 
     const handlerType = (el, i) => {
@@ -86,6 +90,15 @@ export const PokeCard = props => {
                                     state.pokemonData.game_indices.map((el, i) => {
                                         return <span key={i} className="badge badge-info">{el.version.name}</span>
                                     })
+                                }
+                            </div>
+                            <div className="pokeCard--left--version mb-3">
+                                {
+                                    !location.locationFetched ?
+                                        <p className="small">Loading location..</p>
+                                    :<p>Location:
+                                        <span className="badge badge-info">{location.locationData.name}</span>
+                                    </p>
                                 }
                             </div>
                             <button onClick={props.history.goBack} className="btn btn-success">Home</button>
