@@ -14,7 +14,6 @@ const style = {
 export const PokeCard = props => {
     const [state, setState] = useState({ pokemonData: null, dataFetched: false });
     const [location, setLocation] = useState({locationData: {}, locationFetched: false});
-    console.log(state);
     
     useEffect(() => {
         const fetchAllPokemonData = async () => {
@@ -62,6 +61,12 @@ export const PokeCard = props => {
         }
     };
 
+    const handlerFav = () => {
+        const addInSession = { name: state.pokemonData.name, imgPokemon: state.pokemonData.sprites.front_default};
+        console.log(window.sessionStorage);
+        window.sessionStorage.setItem
+    }
+
     return (
         <section className="container">
             <div className="row">
@@ -96,12 +101,25 @@ export const PokeCard = props => {
                                 {
                                     !location.locationFetched ?
                                         <p className="small">Loading location..</p>
-                                    :<p>Location:
-                                        <span className="badge badge-info">{location.locationData.name}</span>
-                                    </p>
+                                    :<>
+                                        <p>Location: <span className="badge badge-info">{location.locationData.name}</span>
+                                        </p>
+                                        <p>Région: <strong>{location.locationData.region.name}</strong>.</p>
+                                    </>
                                 }
                             </div>
-                            <button onClick={props.history.goBack} className="btn btn-success">Home</button>
+                            <div className="pokeCard--left--stat mb-3">
+                                <p>Statistiques</p>
+                                <ul className="list-group">
+                                {
+                                    state.pokemonData.stats.map((el, i) => {
+                                        return <li key={i} className="list-group-item">{el.stat.name}: <strong>{el.base_stat}</strong></li>
+                                    })
+                                }
+                                </ul>
+                            </div>
+                            <button onClick={props.history.goBack} className="btn btn-success mb-3">Home</button>
+                            <button onClick={handlerFav} className="btn btn-primary">Add this pokemon to favorite.</button>
                         </div>
                         <div className="pokeCard--right">
                             <img
