@@ -1,5 +1,4 @@
-@import "./general.scss";
-@import "./helper/modifier.scss";
-@import "./layout/container.scss";
-@import "./layout/content.scss";
-@import "./layout/header.scss";
+@import "./components/search";
+@import './components/pokeList';
+@import "./components/pokeCard";
+@import "./components/pokeMove";
