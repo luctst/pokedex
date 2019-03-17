@@ -3,6 +3,10 @@
  */
 import React from "react";
 import {Link} from "react-router-dom";
+const style = {
+    "flex": "0 0 20%",
+    "margin": "1%"
+}
 
 /**
  * Render the list of pokemon when page is loaded
@@ -26,11 +30,11 @@ export const PokeList = props => {
                                 </div>
                             );
                         })
-                    : <ul className="list-group">
+                    : <ul className="list-group flex-wrap justify-content-center flex-row">
                     {
                         props.pokemonData.map((el, i) => {
                             return el.name.startsWith(props.showList.pokemonTarget) ?
-                                <li className="list-group-item" key={i}>
+                                <li className="list-group-item" key={i} style={style}>
                                     <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`}/>
                                     <Link to={`/pokemon/${el.name}`}>{el.name}</Link>
                                 </li>
