@@ -19,11 +19,12 @@ export default class PokeCards {
 
     renderCards(element) {
         const cardsSection = document.createElement('section');
-        cardsSection.setAttribute("class", "container-fluid poke--cards mt-5");
+        cardsSection.setAttribute("class", "container-fluid poke--cards d-flex flex-wrap mt-5");
         this.pokemonData.map(el => {
         const pokeCards = document.createElement('div');
+        pokeCards.setAttribute('class', 'poke--card');
         pokeCards.innerHTML = `
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="card--pokemon">
                         <img class="card--picture" src="${el.imageUrl}">
                     </div>
