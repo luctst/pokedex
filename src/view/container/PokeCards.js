@@ -25,7 +25,7 @@ export default class PokeCards {
         this.pokemonData.map(el => {
         const pokeCards = document.createElement('div');
         pokeCards.setAttribute("class", "poke--cards");
-        pokeCards.innerHTML = `<img class="card--picture" src="${el.imageUrl}">`;
+            pokeCards.innerHTML = `<a class="card-link" href="#" ><img class="card--picture" src="${el.imageUrl}"></a>`;
             cardsSection.appendChild(pokeCards)
         });
         element.appendChild(cardsSection);
