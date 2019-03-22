@@ -1,3 +1,5 @@
+import Footer from "../components/Footer";
+
 export default class PokeCards {
     constructor(el) {
         this.pokemonData = [];
@@ -19,7 +21,7 @@ export default class PokeCards {
 
     renderCards(element) {
         const cardsSection = document.createElement('section');
-        cardsSection.setAttribute("class", "container-fluid d-flex flex-wrap mt-5");
+        cardsSection.setAttribute("class", "container-fluid d-flex flex-wrap mt-5 section--cards");
         this.pokemonData.map(el => {
         const pokeCards = document.createElement('div');
         pokeCards.setAttribute("class", "poke--cards");
@@ -27,5 +29,6 @@ export default class PokeCards {
             cardsSection.appendChild(pokeCards)
         });
         element.appendChild(cardsSection);
+        new Footer(element);
     }
 }

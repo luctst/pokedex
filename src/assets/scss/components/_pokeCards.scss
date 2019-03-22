@@ -1,4 +1,9 @@
-.poke--cards {
-    flex: 0 0 25%;
-    margin-top: 10px;
+.section--cards {
+    margin-bottom: 10%;
+    
+    .poke--cards {
+        flex: 0 0 25%;
+        margin: 10px 0px;
+    }
 }
+
