@@ -2,7 +2,10 @@ export default class Footer {
     constructor(element) {
         this.renderFooter(element);
     }
-
+/**
+ * Render the footer.
+ @param {HTMLElement} element === the previous html element which is render.
+ */
     renderFooter(element) {
         const footer = document.createElement('footer');
         footer.innerHTML = `

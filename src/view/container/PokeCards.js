@@ -6,8 +6,11 @@ export default class PokeCards {
         this.getData(el)
     }
 
-
-
+/**
+ * Call API which pick up the data
+ * RendeCards renders the cards's view.
+ @param {HTMLElement} element === the previous html element which is render.
+ */
     getData(element) {
         fetch("https://api.pokemontcg.io/v1/cards?page=2")
             .then(result => result.json())
