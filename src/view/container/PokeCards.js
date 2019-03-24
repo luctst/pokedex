@@ -4,8 +4,6 @@ export default class PokeCards {
         this.getData(el)
     }
 
-
-
     getData(element) {
         fetch("https://api.pokemontcg.io/v1/cards?page=2")
             .then(result => result.json())
