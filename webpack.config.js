@@ -52,5 +52,9 @@ module.exports = {
         new html({
             template: "./src/index.html"
         }),
+        new html({
+            filename: "pkmn_card",
+            template: "./src/pkmn_card.html"
+        }),
     ],
 };
