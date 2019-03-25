@@ -13,56 +13,55 @@ export default class SearchBar {
         searchBar.setAttribute('class', 'col-xs-3 search--bar');
         searchBar.innerHTML = `
         <input type="text" id="myInput" size="80" placeholder="Search by name">
-        <button class="button is-primary"><i class="fas fa-search"></i></button>
-        <button class="filter--btn button is-primary"><i class="fas fa-sort-amount-down"></i></button>`;
+        <button class="button is-primary"><i class="fas fa-search"></i></button>`;
         element.appendChild(searchBar);
-        this.renderFilters();
+        this.renderFilters(element);
     }
 
-    renderFilters() {
-        const filterBtn = document.querySelector('.filter--btn');
+    renderFilters(element) {
+        //const filterBtn = document.querySelector('.filter--btn');
         const filters = document.createElement("div");
-        filterBtn.addEventListener('click', () => {
-            filters.setAttribute('class', 'filters');
-            filters.innerHTML = `
-            <form>
-            <div class="form-row align-items-center">
-                <div class="col-auto my-1">
-                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                        <option selected>Choose...</option>
-                        <option value="1">Types</option>
-                        <option value="2">Hp</option>
-                        <option value="3">Rarity</option>
-                        <option value="4">Retreat cost</option>
-                        <option value="5">Weakness</option>
-                        <option value="6">Resistance</option>
-                        <option value="7">EvolvesFrom</option>
-                    </select>
-                </div>
-            </div>`;
-            filterBtn.appendChild(filters)
-        })
+        filters.setAttribute('class', 'filters');
 
-        filterBtn.removeEventListener('click', () => {
-            filters.setAttribute('class', 'filters');
+       // filterBtn.addEventListener('click', () => {
             filters.innerHTML = `
-            <form>
-            <div class="form-row align-items-center">
-                <div class="col-auto my-1">
-                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                        <option selected>Choose...</option>
-                        <option value="1">Types</option>
-                        <option value="2">Hp</option>
-                        <option value="3">Rarity</option>
-                        <option value="4">Retreat cost</option>
-                        <option value="5">Weakness</option>
-                        <option value="6">Resistance</option>
-                        <option value="7">EvolvesFrom</option>
-                    </select>
-                </div>
-            </div>`;
-        })
+            <h3>Filters:</h3>
+                <label class="container">Trainers
+                <input type="checkbox">
+                <span class="checkmark"></span>
+                </label>
+                
+                <label class="container">Types
+                <input type="checkbox">
+                <span class="checkmark"></span>
+                </label>
+                
+                <label class="container">Hp
+                <input type="checkbox">
+                <span class="checkmark"></span>
+                </label>
+                <label class="container">Rarity
+                <input type="checkbox">
+                <span class="checkmark"></span>
+                </label>
+                <label class="container">Retreat cost
+                <input type="checkbox">
+                <span class="checkmark"></span>
+                </label>
+                <label class="container">Weakness
+                <input type="checkbox">
+                <span class="checkmark"></span>
+                </label>
+                <label class="container">Resistance
+                <input type="checkbox">
+                <span class="checkmark"></span>
+                </label>
+                
+                <label class="container">EvolvesFrom
+                <input type="checkbox">
+                <span class="checkmark"></span>
+                </label> `;
+       // })
+        element.appendChild(filters)
     }
 }
