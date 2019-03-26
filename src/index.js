@@ -6,11 +6,11 @@ import App from "./view/app";
 import PokeCards from "./view/container/PokeCards";
 const app = document.querySelector("#root");
 
-new App(app);
+//new App(app);
 
-if (window.location.href === "/") {
-    new App(app)
-} else if (window.location.href !== "/") {
-    window.pathname = 'pkmn_card.html';
+if (window.location.pathname === "/") {
+    new App(app);
+} else if (window.location.pathname === "/") {
+    window.location.pathname = 'pkmn_card.html';
     console.log(window.pathname); 
 }
