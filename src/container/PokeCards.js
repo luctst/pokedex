@@ -16,7 +16,6 @@ export default class PokeCards {
             .then(result => result.json())
             .then(dataParsed => {
                 this.pokemonData = [...dataParsed.cards];
-                console.log(dataParsed);
                 this.renderCards(element);
             })
             .catch(error => console.log(error));
@@ -28,7 +27,7 @@ export default class PokeCards {
         this.pokemonData.map(el => {
         const pokeCards = document.createElement('div');
         pokeCards.setAttribute("class", "poke--cards");
-            pokeCards.innerHTML = `<a class="card-link" href="pkmn_card.html"><img class="card--picture" src="${el.imageUrl}"></a>`;
+            pokeCards.innerHTML = `<a class="card-link" href="${window.location.href}cards?name=${el.name}"><img class="card--picture" src="${el.imageUrl}"></a>`;
             cardsSection.appendChild(pokeCards)
         });
         element.appendChild(cardsSection);

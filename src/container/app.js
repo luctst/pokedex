@@ -1,9 +1,9 @@
 /**
  * Import, Variables
  */
-import Header from "./components/Header";
-import Introduction from "./components/Introduction";
-import PokeCards from "./container/PokeCards";
+import Header from "../components/Header";
+import Introduction from "../components/Introduction";
+import PokeCards from "./PokeCards";
 /** 
  * App who render the Header, Introduction and Pokecards 
  @param {HTMLElement} element === the previous html element which is render.
