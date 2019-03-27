@@ -37,6 +37,11 @@ export default class SearchBar {
         })
     }
 
+    /**
+     * Method which render filters.
+     * @param {HTMLElement} element === the previous html element which is render.
+     */
+
     renderFilters(element) {
         //const filterBtn = document.querySelector('.filter--btn');
         const filters = document.createElement("div");
