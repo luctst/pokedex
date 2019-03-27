@@ -1,7 +1,7 @@
 /**
  * Import, variables..
  */
-import {getData} from "../actions/helper";
+import { getData } from "../actions/helper";
 
 /**
 * Render the /cards component. 
@@ -42,16 +42,43 @@ export default class Test {
         section.setAttribute("class", "container-fluid d-flex flex-wrap mt-5 section--cards");
         section.innerHTML = `<h1>${data.cards[0].name}</h1>`;
         data.cards.map(el => {
+            console.log(data.cards);
+
             const pokeCards = document.createElement('div');
             pokeCards.setAttribute("class", "poke--cards");
 
-            pokeCards.innerHTML = 
-            `<a class="card-link">
-                <img class="card--picture" src="${el.imageUrl}">
-            </a>`;
+            pokeCards.innerHTML =
+                `<a class="card-link">
+                    <img class="card--picture" src="${el.imageUrl}">
+                </a>
+                <div class="about">
+                    <p>${el.supertype}</p>
+                    <p>${el.hp}</p>
+                    <p>${this.loopAttacks(el.attacks)}</p>
+                    <p>${el.convertedRetreatCost}</p>
+                    <p>${el.rarity}</p>
+                    <p>${el.retreatCost}</p>
+                    <p>${el.subtype}</p>
+                    <p>${el.types}</p>
+                    <p>${el.weaknesses}</p>
+                </div>
+            `;
 
             section.appendChild(pokeCards);
         });
         el.appendChild(section);
     }
+            loopAttacks(array) {
+                for (let i = 0; i < array.length; i++) {
+                   const  attacks = {
+                        name: array[i].name, 
+                        damage: array[i].damage,
+                        text: array[i].text,
+                        convertedEnergyCost: array[i].convertedEnergyCost
+                    }
+                    return Object.values(attacks);
+                   // console.log(attacks);
+                    
+                }
+            }
 }
