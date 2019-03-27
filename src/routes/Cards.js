@@ -18,7 +18,7 @@ export default class Test {
     async getPokemonData(el) {
         const pokeName = window.location.search.split("=");
         const dataParsed = await getData(`https://api.pokemontcg.io/v1/cards?name=${pokeName[1].toLowerCase()}`);
-
+        
         if (dataParsed.cards.length === 0) {
             const section = document.createElement("section");
             section.setAttribute("class", "container d-flex justify-content-center align-items-center");
@@ -42,11 +42,10 @@ export default class Test {
         section.setAttribute("class", "container-fluid d-flex flex-wrap mt-5 section--cards");
         section.innerHTML = `<h1>${data.cards[0].name}</h1>`;
         data.cards.map(el => {
-            console.log(data.cards);
+           // console.log(data.cards[0]);
 
             const pokeCards = document.createElement('div');
             pokeCards.setAttribute("class", "poke--cards");
-
             pokeCards.innerHTML =
                 `<a class="card-link">
                     <img class="card--picture" src="${el.imageUrl}">
@@ -54,31 +53,41 @@ export default class Test {
                 <div class="about">
                     <p>${el.supertype}</p>
                     <p>${el.hp}</p>
-                    <p>${this.loopAttacks(el.attacks)}</p>
+                    <p>${el.attacks}</p>
                     <p>${el.convertedRetreatCost}</p>
                     <p>${el.rarity}</p>
                     <p>${el.retreatCost}</p>
                     <p>${el.subtype}</p>
                     <p>${el.types}</p>
                     <p>${el.weaknesses}</p>
-                </div>
-            `;
-
+                </div>`;
             section.appendChild(pokeCards);
+            
+            /**
+             * @param {HTMLELement} el === the card clicked
+             * Test which pick up the el clicked
+             */
+            pokeCards.addEventListener('click', () => {
+                if (el.imageUrl) {
+                    console.log(el.imageUrl); 
+                } 
+            })
+            
         });
         el.appendChild(section);
     }
-            loopAttacks(array) {
-                for (let i = 0; i < array.length; i++) {
-                   const  attacks = {
-                        name: array[i].name, 
-                        damage: array[i].damage,
-                        text: array[i].text,
-                        convertedEnergyCost: array[i].convertedEnergyCost
-                    }
-                    return Object.values(attacks);
-                   // console.log(attacks);
+    // <p>${this.loopAttacks(el.attacks)}</p>
+            // loopAttacks(array) {
+            //     for (let i = 0; i < array.length; i++) {
+            //        const  attacks = {
+            //             name: array[i].name, 
+            //             damage: array[i].damage,
+            //             text: array[i].text,
+            //             convertedEnergyCost: array[i].convertedEnergyCost
+            //         }
+            //         return Object.values(attacks);
+            //        // console.log(attacks);
                     
-                }
-            }
+            //     }
+            // }
 }

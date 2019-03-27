@@ -28,7 +28,18 @@ export default class PokeCards {
         const pokeCards = document.createElement('div');
         pokeCards.setAttribute("class", "poke--cards");
             pokeCards.innerHTML = `<a class="card-link" href="${window.location.href}cards?name=${el.name}"><img class="card--picture" src="${el.imageUrl}"></a>`;
-            cardsSection.appendChild(pokeCards)
+            cardsSection.appendChild(pokeCards);
+
+        /**
+         * @param {HTMLELement} el === the card clicked
+         * Test which pick up the el clicked
+         */
+           pokeCards.addEventListener('click', (event) => {
+               if (el.imageUrl === event.target.imageUrl) {
+                console.log(el.imageUrl);
+                    
+                }
+            })
         });
         element.appendChild(cardsSection);
         new Footer(element);
