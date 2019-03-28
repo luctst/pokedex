@@ -1,5 +1,3 @@
-import SearchBar from "../container/SearchBar";
-
 export default class Introduction {
     constructor(element) {
         this.renderIntroText(element);
@@ -21,6 +19,5 @@ export default class Introduction {
             </div>
         </div>`;
         element.appendChild(introText);
-        new SearchBar(element);
     }
 }
