@@ -6,7 +6,7 @@ import { getData } from "../actions/helper";
 /**
 * Render the /cards component. 
 */
-export default class Test {
+export default class Cards {
     constructor(element) {
         this.getPokemonData(element);
     }
@@ -16,12 +16,8 @@ export default class Test {
      * @param {HTMLElement} el the html element to get with `render` function.
      */
     async getPokemonData(el) {
-        const pokeName = window.location.search.split("=");
-        
-        const dataParsed = await getData(`https://api.pokemontcg.io/v1/cards?name=${pokeName[1].toLowerCase()}`);
-        const pokeId = dataParsed.cards[0].id;
-        console.log(pokeId);
-        console.log(dataParsed);
+        const pokeId = window.location.search.split("=");        
+        const dataParsed = await getData(`https://api.pokemontcg.io/v1/cards?id=${pokeId[1]}`);
         
         if (dataParsed.cards.length === 0) {
             const section = document.createElement("section");
