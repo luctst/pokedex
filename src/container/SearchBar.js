@@ -1,9 +1,29 @@
+import PokeCards from "./PokeCards";
+
 export default class SearchBar {
-    constructor(element) {
+    constructor(element, el) {
+        this.pkmnArr = [];
+        this.getData(el);
         this.renderSearchBar(element);
     }
 
+    /**
+     * Call API which pick up the data
+     * RendeCards renders the cards's view.
+     @param {HTMLElement} element === the previous html element which is render.
+     */
+    getData(element) {
+        fetch("https://api.pokemontcg.io/v1/cards?page=2")
+            .then(result => result.json())
+            .then(dataParsed => {
+                this.pokemonData = [...dataParsed.cards];
+                //this.renderCards(element);
+                new PokeCards(element);
+            })
+            .catch(error => console.log(error));
+    }
 
+    
     /**
     * Render the searchbar and the icon filter
     @param {HTMLElement} element === the previous html element which is render.

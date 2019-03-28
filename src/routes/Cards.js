@@ -17,7 +17,11 @@ export default class Test {
      */
     async getPokemonData(el) {
         const pokeName = window.location.search.split("=");
+        
         const dataParsed = await getData(`https://api.pokemontcg.io/v1/cards?name=${pokeName[1].toLowerCase()}`);
+        const pokeId = dataParsed.cards[0].id;
+        console.log(pokeId);
+        console.log(dataParsed);
         
         if (dataParsed.cards.length === 0) {
             const section = document.createElement("section");
@@ -41,6 +45,10 @@ export default class Test {
         const section = document.createElement('section');
         section.setAttribute("class", "container-fluid d-flex flex-wrap mt-5 section--cards");
         section.innerHTML = `<h1>${data.cards[0].name}</h1>`;
+
+        const testId = data.cards[0].id;
+        console.log(testId); 
+
         data.cards.map(el => {
            // console.log(data.cards[0]);
 

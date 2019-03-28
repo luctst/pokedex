@@ -1,9 +1,13 @@
+import SearchBar from "./SearchBar";
+const testBar = new SearchBar(element);
+
 import Footer from "../components/Footer";
 
 export default class PokeCards {
     constructor(el) {
-        this.pokemonData = [];
-        this.getData(el)
+        // this.pokemonData = [];
+        // this.getData(el)
+        this.renderCards(el);
     }
 
 /**
@@ -11,15 +15,15 @@ export default class PokeCards {
  * RendeCards renders the cards's view.
  @param {HTMLElement} element === the previous html element which is render.
  */
-    getData(element) {
-        fetch("https://api.pokemontcg.io/v1/cards?page=2")
-            .then(result => result.json())
-            .then(dataParsed => {
-                this.pokemonData = [...dataParsed.cards];
-                this.renderCards(element);
-            })
-            .catch(error => console.log(error));
-    }
+    // getData(element) {
+    //     fetch("https://api.pokemontcg.io/v1/cards?page=2")
+    //         .then(result => result.json())
+    //         .then(dataParsed => {
+    //             this.pokemonData = [...dataParsed.cards];
+    //             this.renderCards(element);
+    //         })
+    //         .catch(error => console.log(error));
+    // }
 
     renderCards(element) {
         const cardsSection = document.createElement('section');
@@ -34,12 +38,12 @@ export default class PokeCards {
          * @param {HTMLELement} el === the card clicked
          * Test which pick up the el clicked
          */
-           pokeCards.addEventListener('click', (event) => {
-               if (el.imageUrl === event.target.imageUrl) {
-                console.log(el.imageUrl);
+        //    pokeCards.addEventListener('click', (event) => {
+        //        if (el.imageUrl === event.target.imageUrl) {
+        //         console.log(el.imageUrl);
                     
-                }
-            })
+        //         }
+        //     })
         });
         element.appendChild(cardsSection);
         new Footer(element);
