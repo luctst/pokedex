@@ -1,9 +1,18 @@
-import PokeCards from "./PokeCards";
+/**
+ * Import, variables
+ */
+import PokeCards from "../components/PokeCards";
+import {getData} from "../actions/helper";
+import Footer from "../components/Footer";
 
+
+/**
+ * Render the searchBar component.
+ */
 export default class SearchBar {
-    constructor(element, el) {
-        this.pkmnArr = [];
-        this.getData(el);
+    constructor(element) {
+        this.pokemonData = [];
+        this.getPokeData(element);
         this.renderSearchBar(element);
     }
 
@@ -12,15 +21,11 @@ export default class SearchBar {
      * RendeCards renders the cards's view.
      @param {HTMLElement} element === the previous html element which is render.
      */
-    getData(element) {
-        fetch("https://api.pokemontcg.io/v1/cards?page=2")
-            .then(result => result.json())
-            .then(dataParsed => {
-                this.pokemonData = [...dataParsed.cards];
-                //this.renderCards(element);
-                new PokeCards(element);
-            })
-            .catch(error => console.log(error));
+    async getPokeData(element) {
+        const dataParsed = await getData("https://api.pokemontcg.io/v1/cards?page=2");
+        this.pokemonData = [...dataParsed.cards];
+        new PokeCards(element, this.pokemonData);
+        new Footer(element);
     }
 
     
@@ -31,37 +36,25 @@ export default class SearchBar {
     renderSearchBar(element) {
         const searchBar = document.createElement("div");
         searchBar.setAttribute('class', 'col-xs-3 search--bar');
-        searchBar.innerHTML = `
-        <input type="text" id="myInput" size="80" placeholder="Search by name">
-        <button class="button is-primary search--btn"><i class="fas fa-search"></i></button>`;
+
+        searchBar.innerHTML = `<input type="text" id="myInput" size="80" placeholder="Search by name">`;
         element.appendChild(searchBar);
-        this.renderFilters(element);
-        this.searchByName();
-    }
 
-    /**
-     * Method to search by name and render all cards ask by the name.
-     */
-    searchByName() {
-        const btnSearch = document.querySelector('.search--btn');
-        const inputSearch = document.querySelector('input');
+        const inputValue = document.getElementById("myInput");
+        inputValue.addEventListener('input', async () => {
+            const dataParsed = await getData(`https://api.pokemontcg.io/v1/cards?name=${inputValue.value}`);
+            this.pokemonData = [...dataParsed.cards];
+            new PokeCards(element, this.pokemonData);
+        })
         
-        btnSearch.addEventListener('click', () => {
-            window.location.href = `cards?name=${inputSearch.value}`;
-        })
 
-        document.addEventListener('keypress', function(event) {
-            if (event.keyCode === 13) {
-                window.location.href = `cards?name=${inputSearch.value}`;
-            }
-        })
+        this.renderFilters(element);
     }
 
     /**
      * Method which render filters.
      * @param {HTMLElement} element === the previous html element which is render.
      */
-
     renderFilters(element) {
         //const filterBtn = document.querySelector('.filter--btn');
         const filters = document.createElement("div");
