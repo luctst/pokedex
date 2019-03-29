@@ -5,7 +5,6 @@ import PokeCards from "../components/PokeCards";
 import {getData} from "../actions/helper";
 import Footer from "../components/Footer";
 
-
 /**
  * Render the searchBar component.
  */
@@ -27,8 +26,7 @@ export default class SearchBar {
         new PokeCards(element, this.pokemonData);
         new Footer(element);
     }
-
-    
+  
     /**
     * Render the searchbar and the icon filter
     @param {HTMLElement} element === the previous html element which is render.
@@ -46,8 +44,6 @@ export default class SearchBar {
             this.pokemonData = [...dataParsed.cards];
             new PokeCards(element, this.pokemonData);
         })
-        
-
         this.renderFilters(element);
     }
 
