@@ -36,23 +36,20 @@ export default class Cards {
         }
     }
 
-    loopAttacks(array) {
-        const attackArr = [];
-        array.map(el => {
-            Object.values(el).map(value => attackArr.push(value));
-        })
-        return attackArr;
-    }
-
+    /**
+     * 
+     * @param {HTMLElement} el === The root div
+     * @param {Array} data === The pokemon cards's array 
+     */
     render(el, data) {
-       const valuesArr = this.loopAttacks(data.cards[0].attacks);
-       console.log(valuesArr);       
-       
         el.innerHTML = `
         <header class="container-fluid">
             <div class="row">
-                <div class="col-12">
-                    <h1>${data.cards[0].name}</h1>
+                <div class="col-12 d-flex align-items-center mt-4">
+                <h1>${data.cards[0].name}</h1>
+                <p class="ml-5"><strong>HP:</strong> ${data.cards[0].hp}</p>
+                <p class="ml-5"><strong>Type:</strong> ${data.cards[0].types}</p>
+                <p class="ml-5"><strong>Rarity:</strong> ${data.cards[0].rarity}</p>
                 </div>
             </div>
         </header>
@@ -62,25 +59,64 @@ export default class Cards {
                     <img class="pkmn--picture" src="${data.cards[0].imageUrl}">
                 </div>
                 <div class="col-6 pkmn--about">
-                    <p>${data.cards[0].supertype}</p>
-                    <p>${data.cards[0].hp}</p>
-                    <p>ATTACKS: </p>
+                    <p><strong>Supertype:</strong> ${data.cards[0].supertype}</p>
+                    <p><strong>ATTACKS:</strong> </p>
                     <div class="render--attacks"></div>
-                    <p>${data.cards[0].convertedRetreatCost}</p>
-                    <p>${data.cards[0].rarity}</p>
-                    <p>${data.cards[0].retreatCost}</p>
-                    <p>${data.cards[0].subtype}</p>
-                    <p>${data.cards[0].types}</p>
-                    <p>${data.cards[0].weaknesses}</p>
+                    <p><strong>RetreatCost energy:</strong> ${data.cards[0].convertedRetreatCost} + ${data.cards[0].retreatCost}</p>
+                    <p><strong>Subtype:</strong> ${data.cards[0].subtype}</p>
+                    <p><strong>Weaknesses:</strong></p>
+                    <div class="render--weaknesses"></div>
                 </div>
             </div>
         <section>`;
 
-        valuesArr.map(value => {
-            const htmlP = document.querySelector('.render--attacks');
-            const p = document.createElement('p');
-            p.textContent = value;
-            htmlP.appendChild(p);
+        /**
+         * @param {Loop}  === Function which loop on the Object in attacks
+         */
+        
+        data.cards[0].attacks.map(el => {
+            for (const i in el) {
+                const htmlP = document.querySelector('.render--attacks');
+                const p = document.createElement('p');
+                switch (i) {
+                    case "name": 
+                       p.innerHTML = `<strong>Name attack:</strong> ${el[i]}`;
+                       htmlP.appendChild(p);
+                        break;
+                    case "damage": 
+                        p.textContent = `Damage: ${el[i]} `;
+                        htmlP.appendChild(p);
+                        break;
+                    case "cost": 
+                        p.innerHTML = `Energy: <strong>${el.cost}</strong>`;
+                        htmlP.appendChild(p);
+                        break;
+                    case "text": 
+                        p.textContent = `Description attack: ${el[i]} `;
+                        htmlP.appendChild(p);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        })
+
+        /**
+         * @param {Loop}  === Function which loop on the Object in weaknesses
+         */
+        data.cards[0].weaknesses.map(el => {
+            for (const i in el) {
+                const htmlP = document.querySelector('.render--weaknesses');
+                const p = document.createElement('p');
+                switch (i) {
+                    case "type":
+                        p.innerHTML = `<strong>${el[i]}</strong> ${el.value}`;
+                        htmlP.appendChild(p);
+                        break;
+                    default:
+                        break;
+                }
+            }
         })
     }
 }
