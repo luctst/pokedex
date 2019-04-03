@@ -45,26 +45,27 @@ export default class Cards {
         el.innerHTML = `
         <header class="container-fluid">
             <div class="row">
-                <div class="col-12 d-flex align-items-center mt-4">
-                <h1>${data.cards[0].name}</h1>
-                <p class="ml-5"><strong>HP:</strong> ${data.cards[0].hp}</p>
-                <p class="ml-5"><strong>Type:</strong> ${data.cards[0].types}</p>
-                <p class="ml-5"><strong>Rarity:</strong> ${data.cards[0].rarity}</p>
+                <div class="col-12 d-flex align-items-center mt-4 text-center">
+                <h1 class="pkmn--name">${data.cards[0].name}</h1>
+                    <div class="d-flex header--about">
+                        <p class="ml-5"><strong>HP:</strong> ${data.cards[0].hp}</p>
+                        <p class="ml-5"><strong>Type:</strong> ${data.cards[0].types}</p>
+                        <p class="ml-5"><strong>Rarity:</strong> ${data.cards[0].rarity}</p>
+                        <p class="ml-5"><strong>Supertype:</strong> ${data.cards[0].supertype}</p>
+                    </div>
+                    <a href="/"><button type="button" class="btn btn-success btn--back">Back</button></a>
                 </div>
             </div>
         </header>
         <section class="container-fluid mt-5 section--cards">
             <div class="row">
-                <div class="col-6 pkmn--img">
+                <div class="col-4 pkmn--img text-center">
                     <img class="pkmn--picture" src="${data.cards[0].imageUrl}">
                 </div>
-                <div class="col-6 pkmn--about">
-                    <p><strong>Supertype:</strong> ${data.cards[0].supertype}</p>
-                    <p><strong>ATTACKS:</strong> </p>
+                <div class="col-8 pkmn--about">
                     <div class="render--attacks"></div>
-                    <p><strong>RetreatCost energy:</strong> ${data.cards[0].convertedRetreatCost} + ${data.cards[0].retreatCost}</p>
+                    <p class="cards--retreat--cost"><strong>RetreatCost energy:</strong> ${data.cards[0].convertedRetreatCost} ${data.cards[0].retreatCost}</p>
                     <p><strong>Subtype:</strong> ${data.cards[0].subtype}</p>
-                    <p><strong>Weaknesses:</strong></p>
                     <div class="render--weaknesses"></div>
                 </div>
             </div>
@@ -80,19 +81,23 @@ export default class Cards {
                 const p = document.createElement('p');
                 switch (i) {
                     case "name": 
-                       p.innerHTML = `<strong>Name attack:</strong> ${el[i]}`;
+                       p.innerHTML = `<span class="cost">${el.cost}</span> || ${el[i]} || +${el.damage}`;
+                       p.setAttribute("class", "p--name");
                        htmlP.appendChild(p);
                         break;
-                    case "damage": 
-                        p.textContent = `Damage: ${el[i]} `;
-                        htmlP.appendChild(p);
-                        break;
-                    case "cost": 
-                        p.innerHTML = `Energy: <strong>${el.cost}</strong>`;
-                        htmlP.appendChild(p);
-                        break;
+                    // case "damage": 
+                    //     p.textContent = ` + ${el[i]} `;
+                    //     p.setAttribute("class", "p--damage");
+                    //     htmlP.appendChild(p);
+                    //     break;
+                    // case "cost": 
+                    //     p.innerHTML = `Energy: <strong>${el.cost}</strong>`;
+                    //     p.setAttribute("class", "p--cost");                        
+                    //     htmlP.appendChild(p);
+                    //     break;
                     case "text": 
-                        p.textContent = `Description attack: ${el[i]} `;
+                        p.textContent = `${el[i]} `;
+                        p.setAttribute("class", "p--text");
                         htmlP.appendChild(p);
                         break;
                     default:
@@ -110,7 +115,7 @@ export default class Cards {
                 const p = document.createElement('p');
                 switch (i) {
                     case "type":
-                        p.innerHTML = `<strong>${el[i]}</strong> ${el.value}`;
+                        p.innerHTML = `<strong>Weaknesses</strong>: ${el[i]}${el.value}`;
                         htmlP.appendChild(p);
                         break;
                     default:
