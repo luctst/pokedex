@@ -1,4 +1,4 @@
-# Fabernovel test
+# Pokedex
 *Test for developer fullstack.*
 
 ## Installation:
