@@ -81,7 +81,7 @@ export default class Cards {
                 const p = document.createElement('p');
                 switch (i) {
                     case "name": 
-                       p.innerHTML = `<span class="cost">${el.cost}</span> || ${el[i]} || +${el.damage}`;
+                       p.innerHTML = `<span class="cost">${el.cost}</span> || ${el[i]} || ${el.damage}`;
                        p.setAttribute("class", "p--name");
                        htmlP.appendChild(p);
                         break;
