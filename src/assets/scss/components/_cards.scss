@@ -1,0 +1,41 @@
+body {
+    font-family: 'Roboto';
+}
+
+//********** Pokemon name's style **********//
+.pkmn--name {
+    margin-left: 4%;
+}
+
+//********** Header's style *******//
+.header--about {
+    margin-left: 11%;
+}
+
+.btn--back {
+    position: absolute;
+    left: 6%;
+    top: 85vh;
+}
+//********** Attacks's style **********//
+.render--attacks {
+
+    .p--name {
+        margin-left: 10px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 2em;
+    }
+
+    .p--text {
+        font-style: italic;
+    }
+
+    .cost {
+        font-size: 0.7em;
+    }
+}
+
+.cards--retreat--cost {
+    margin-top: 6%;
+}
