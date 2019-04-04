@@ -51,14 +51,11 @@ export default class SearchBar {
      * Method which render filters.
      * @param {HTMLElement} element === the previous html element which is render.
      */
-    renderFilters(element) {
-        //const filterBtn = document.querySelector('.filter--btn');
+    renderFilters(element) {        
         const filters = document.createElement("div");
         filters.setAttribute('class', 'filters');
 
-        // filterBtn.addEventListener('click', () => {
         filters.innerHTML = `
-            <h3>Filters:</h3>
                 <label class="container">Trainers
                 <input type="checkbox">
                 <span class="checkmark"></span>
@@ -73,18 +70,22 @@ export default class SearchBar {
                 <input type="checkbox">
                 <span class="checkmark"></span>
                 </label>
+
                 <label class="container">Rarity
                 <input type="checkbox">
                 <span class="checkmark"></span>
                 </label>
+
                 <label class="container">Retreat cost
                 <input type="checkbox">
                 <span class="checkmark"></span>
                 </label>
+
                 <label class="container">Weakness
                 <input type="checkbox">
                 <span class="checkmark"></span>
                 </label>
+
                 <label class="container">Resistance
                 <input type="checkbox">
                 <span class="checkmark"></span>
@@ -94,7 +95,22 @@ export default class SearchBar {
                 <input type="checkbox">
                 <span class="checkmark"></span>
                 </label> `;
-        // })
-        element.appendChild(filters)
+
+                element.appendChild(filters)
+
+            this.filterApply();
+    }
+
+    filterApply() {
+        const filterInput = document.querySelectorAll('.checkmark');
+        const filterLabel = document.querySelectorAll('label');
+        // const dataFilter = await getData(`https://api.pokemontcg.io/v1/cards?${filterLabel[i].innerText}`);
+        filterInput.forEach(element => {
+            element.addEventListener('click', () => {
+                for (let i = 0; i < filterLabel.length; i++) {
+                    console.log(`Tu es l'innerText de: ${filterLabel[i].innerText}`);
+                }
+            });
+        });
     }
 }
