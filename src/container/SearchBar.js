@@ -56,45 +56,8 @@ export default class SearchBar {
         filters.setAttribute('class', 'filters');
 
         filters.innerHTML = `
-                <label class="container">Trainers
-                <input type="checkbox">
-                <span class="checkmark"></span>
-                </label>
-                
-                <label class="container">Types
-                <input type="checkbox">
-                <span class="checkmark"></span>
-                </label>
-                
-                <label class="container">Hp
-                <input type="checkbox">
-                <span class="checkmark"></span>
-                </label>
-
-                <label class="container">Rarity
-                <input type="checkbox">
-                <span class="checkmark"></span>
-                </label>
-
-                <label class="container">Retreat cost
-                <input type="checkbox">
-                <span class="checkmark"></span>
-                </label>
-
-                <label class="container">Weakness
-                <input type="checkbox">
-                <span class="checkmark"></span>
-                </label>
-
-                <label class="container">Resistance
-                <input type="checkbox">
-                <span class="checkmark"></span>
-                </label>
-                
-                <label class="container">EvolvesFrom
-                <input type="checkbox">
-                <span class="checkmark"></span>
-                </label> `;
+        
+                `;
 
                 element.appendChild(filters)
 
