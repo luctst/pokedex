@@ -13,6 +13,11 @@ export default class SearchBar {
         this.pokemonData = [];
         this.getPokeData(element);
         this.renderSearchBar(element);
+        this.filterByName(element);
+        this.filterApply();
+        this.state = {
+            filters: []
+        }
     }
 
     /**
@@ -26,54 +31,108 @@ export default class SearchBar {
         new PokeCards(element, this.pokemonData);
         new Footer(element);
     }
-  
+
     /**
-    * Render the searchbar and the icon filter
-    @param {HTMLElement} element === the previous html element which is render.
-    */
-    renderSearchBar(element) {
-        const searchBar = document.createElement("div");
-        searchBar.setAttribute('class', 'col-xs-3 search--bar');
-
-        searchBar.innerHTML = `<input type="text" id="myInput" size="80" placeholder="Search by name">`;
-        element.appendChild(searchBar);
-
+     * Render cards by a pokemon name.
+     * @param {String} element the pokemon name from the `inputValue` node element.
+     */
+    filterByName(element) {
         const inputValue = document.getElementById("myInput");
         inputValue.addEventListener('input', async () => {
             const dataParsed = await getData(`https://api.pokemontcg.io/v1/cards?name=${inputValue.value}`);
             this.pokemonData = [...dataParsed.cards];
             new PokeCards(element, this.pokemonData);
-        })
-        this.renderFilters(element);
+        });
+    }
+  
+    filterApply() {
+        const filter = document.querySelectorAll('select');
+        let url = `https://api.pokemontcg.io/v1/cards?`;
+        
+        filter.forEach(element => {
+            element.addEventListener('change', async () => {
+                
+                if (element.value === "Default") {
+                    if (this.state.filters.length !== 0) {
+                        const indexPos = this.state.filters.indexOf(element.name);
+                        this.state.filters.splice(indexPos, 1);
+                    }
+                } else if (this.state.filters.includes(element.name)) {
+                } else {
+                    this.state.filters.push(element.name);
+
+                    this.state.filters.filter((el, i) => {
+                        if (url.includes(el)) {
+                            null;
+                        } else if (i === 0) {
+                            url += `${el}=${element.value}`;
+                        } else {
+                            url += `&${el}=${element.value}`;
+                        }
+                    });
+
+                    const dataParsed = await getData(url);
+                    this.pokemonData = [...dataParsed.cards];
+                    new PokeCards(element, this.pokemonData);
+                }
+            })
+        });
+
+        // const filterInput = document.querySelectorAll('.checkmark');
+        // const filterLabel = document.querySelectorAll('label');
+        // // const dataFilter = await getData(`https://api.pokemontcg.io/v1/cards?${filterLabel[i].innerText}`);
+        // filterInput.forEach(element => {
+        //     element.addEventListener("click", console.log(element));
+        //     // element.addEventListener('click', () => {
+        //     //     for (let i = 0; i < filterLabel.length; i++) {
+        //     //         console.log(`Tu es l'innerText de: ${filterLabel[i].innerText}`);
+        //     //     }
+        //     // });
+        // });
     }
 
     /**
-     * Method which render filters.
-     * @param {HTMLElement} element === the previous html element which is render.
-     */
-    renderFilters(element) {        
-        const filters = document.createElement("div");
-        filters.setAttribute('class', 'filters');
+    * Render the searchbar and the icon filter
+    @param {HTMLElement} element === the previous html element which is render.
+    */
+    renderSearchBar(element) {
+        const searchBar = document.createElement("section");
+        searchBar.setAttribute('class', 'container-fluid search--bar');
 
-        filters.innerHTML = `
-        
-                `;
-
-                element.appendChild(filters)
-
-            this.filterApply();
-    }
-
-    filterApply() {
-        const filterInput = document.querySelectorAll('.checkmark');
-        const filterLabel = document.querySelectorAll('label');
-        // const dataFilter = await getData(`https://api.pokemontcg.io/v1/cards?${filterLabel[i].innerText}`);
-        filterInput.forEach(element => {
-            element.addEventListener('click', () => {
-                for (let i = 0; i < filterLabel.length; i++) {
-                    console.log(`Tu es l'innerText de: ${filterLabel[i].innerText}`);
-                }
-            });
-        });
+        searchBar.innerHTML = `
+            <div class="row">
+                <div class="col-8">
+                    <form>
+                        <div class="form-group">
+                            <input id="myInput" placeholder="Search by name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-3">
+                                    <label>Type</label>
+                                    <select class="form-control type" name="types">
+                                        <option selected>Default</option>
+                                        <option>Fire</option>
+                                        <option>Water</option>
+                                        <option>Elektric</option>
+                                        <option>Stone</option>
+                                        <option>Wind</option>
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <label>Rarity</label>
+                                    <select class="form-control rarity" name="rarity">
+                                        <option selected>Default</option>
+                                        <option>Rare</option>
+                                        <option>Ex</option>
+                                        <option>holo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>`;
+        element.appendChild(searchBar);
     }
 }
