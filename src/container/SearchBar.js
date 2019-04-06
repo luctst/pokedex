@@ -55,9 +55,36 @@ export default class SearchBar {
                 if (element.value === "Default") {
                     if (this.state.filters.length !== 0) {
                         const indexPos = this.state.filters.indexOf(element.name);
-                        this.state.filters.splice(indexPos, 1);
+                        this.state.filters.splice(indexPos, 1); 
                     }
                 } else if (this.state.filters.includes(element.name)) {
+                    
+                    console.log(url);
+                    console.log(element.value);
+                    
+                   // let oldUrl = url.split(`${element.value}`);
+                    const oldUrl = url.split('Fire');
+                    
+                    console.log(oldUrl);
+                    const newUrl = url.replace('Fire', 'Water');
+                    console.log(newUrl);
+                    const dataParsed = await getData(newUrl);
+                    this.pokemonData = [...dataParsed.cards];
+                    new PokeCards(element, this.pokemonData);
+
+                    // Log the new element.value
+                    // const newUrl = url.replace( oldUrl, `${element.value}`);
+                    // console.log(newUrl);
+
+                    // Log https://api.pokemontcg.io/v1/cards?types=Fire&rarity=RareWater
+                    // const testUrl = url.replace(oldUrl, newUrl);
+                    // const urlGang = `${url +=element.name=testUrl}`;
+                    // console.log(urlGang);
+                    
+                    
+                    
+                    
+                    
                 } else {
                     this.state.filters.push(element.name);
 
@@ -66,8 +93,12 @@ export default class SearchBar {
                             null;
                         } else if (i === 0) {
                             url += `${el}=${element.value}`;
+                           // console.log(url);
+                            
                         } else {
                             url += `&${el}=${element.value}`;
+                           // console.log(url);
+                            
                         }
                     });
 
