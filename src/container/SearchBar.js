@@ -10,14 +10,15 @@ import Footer from "../components/Footer";
  */
 export default class SearchBar {
     constructor(element) {
+        this.state = {
+            filters: [],
+            url: `https://api.pokemontcg.io/v1/cards?`
+        }
         this.pokemonData = [];
         this.getPokeData(element);
         this.renderSearchBar(element);
         this.filterByName(element);
         this.filterApply();
-        this.state = {
-            filters: []
-        }
     }
 
     /**
@@ -26,7 +27,7 @@ export default class SearchBar {
      @param {HTMLElement} element === the previous html element which is render.
      */
     async getPokeData(element) {
-        const dataParsed = await getData("https://api.pokemontcg.io/v1/cards?page=2");
+        const dataParsed = await getData(`${this.state.url}page=2`);
         this.pokemonData = [...dataParsed.cards];
         new PokeCards(element, this.pokemonData);
         new Footer(element);
@@ -39,7 +40,7 @@ export default class SearchBar {
     filterByName(element) {
         const inputValue = document.getElementById("myInput");
         inputValue.addEventListener('input', async () => {
-            const dataParsed = await getData(`https://api.pokemontcg.io/v1/cards?name=${inputValue.value}`);
+            const dataParsed = await getData(`${this.state.url}name=${inputValue.value}`);
             this.pokemonData = [...dataParsed.cards];
             new PokeCards(element, this.pokemonData);
         });
@@ -47,7 +48,7 @@ export default class SearchBar {
   
     filterApply() {
         const filter = document.querySelectorAll('select');
-        let url = `https://api.pokemontcg.io/v1/cards?`;
+       // let url = `https://api.pokemontcg.io/v1/cards?`;
         
         filter.forEach(element => {
             element.addEventListener('change', async () => {
@@ -59,14 +60,15 @@ export default class SearchBar {
                     }
                 } else if (this.state.filters.includes(element.name)) {
                     
-                    console.log(url);
+                    console.log(this.state.url);
                     console.log(element.value);
+                    console.log(element.name);
                     
-                   // let oldUrl = url.split(`${element.value}`);
-                    const oldUrl = url.split('Fire');
+                    //const oldUrl = url.split('Fire');
+                    const oldUrl = this.state.url.split(`${element.name}=`);
                     
                     console.log(oldUrl);
-                    const newUrl = url.replace('Fire', 'Water');
+                     const newUrl = this.state.url.replace(oldUrl[1], element.value);
                     console.log(newUrl);
                     const dataParsed = await getData(newUrl);
                     this.pokemonData = [...dataParsed.cards];
@@ -89,20 +91,20 @@ export default class SearchBar {
                     this.state.filters.push(element.name);
 
                     this.state.filters.filter((el, i) => {
-                        if (url.includes(el)) {
+                        if (this.state.url.includes(el)) {
                             null;
                         } else if (i === 0) {
-                            url += `${el}=${element.value}`;
+                            this.state.url += `${el}=${element.value}`;
                            // console.log(url);
                             
                         } else {
-                            url += `&${el}=${element.value}`;
+                            this.state.url += `&${el}=${element.value}`;
                            // console.log(url);
                             
                         }
                     });
 
-                    const dataParsed = await getData(url);
+                    const dataParsed = await getData(this.state.url);
                     this.pokemonData = [...dataParsed.cards];
                     new PokeCards(element, this.pokemonData);
                 }
@@ -145,9 +147,15 @@ export default class SearchBar {
                                         <option selected>Default</option>
                                         <option>Fire</option>
                                         <option>Water</option>
-                                        <option>Elektric</option>
-                                        <option>Stone</option>
-                                        <option>Wind</option>
+                                        <option>Lightning</option>
+                                        <option>Fighting</option>
+                                        <option>Grass</option>
+                                        <option>Metal</option>
+                                        <option>Psychic</option>
+                                        <option>Colorless</option>
+                                        <option>Darkness</option>
+                                        <option>Dragon</option>
+                                        <option>Fairy</option>
                                     </select>
                                 </div>
                                 <div class="col-3">
@@ -155,8 +163,8 @@ export default class SearchBar {
                                     <select class="form-control rarity" name="rarity">
                                         <option selected>Default</option>
                                         <option>Rare</option>
-                                        <option>Ex</option>
-                                        <option>holo</option>
+                                        <option>RareHolo</option>
+                                        <option>Common</option>
                                     </select>
                                 </div>
                             </div>
