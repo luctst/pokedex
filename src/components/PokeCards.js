@@ -11,14 +11,21 @@ export default class PokeCards {
             const cardSection = document.querySelector(".section--cards");
             cardSection.innerHTML = "";
 
-            pokemonArr.map(el => {
-                const pokeCards = document.createElement('div');
-                pokeCards.setAttribute("class", "poke--cards");
+            if (pokemonArr.length === 0) {
+                const p = document.createElement("p");
+                p.textContent = "No pokemon for this research..";
+                cardSection.appendChild(p);
+            } else {
+                pokemonArr.map(el => {
+                    const pokeCards = document.createElement('div');
+                    pokeCards.setAttribute("class", "poke--cards");
+    
+                    pokeCards.innerHTML = `<a class="card-link" href="${window.location.href}cards?id=${el.id}"><img class="card--picture" src="${el.imageUrl}"></a>`;
+    
+                    cardSection.appendChild(pokeCards);
+                });
+            }
 
-                pokeCards.innerHTML = `<a class="card-link" href="${window.location.href}cards?id=${el.id}"><img class="card--picture" src="${el.imageUrl}"></a>`;
-
-                cardSection.appendChild(pokeCards);
-            });
         } else {
             const cardsSection = document.createElement('section');
             cardsSection.setAttribute("class", "container-fluid d-flex flex-wrap mt-5 section--cards");
