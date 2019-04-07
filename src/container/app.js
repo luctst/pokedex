@@ -3,7 +3,7 @@
  */
 import Header from "../components/Header";
 import Introduction from "../components/Introduction";
-import SearchBar from "./SearchBar";
+import FormFilter from "./FormFilter";
 
 /** 
  * App who render the Header, Introduction and Pokecards 
@@ -13,6 +13,6 @@ export default class App {
     constructor(element) {
         new Header(element);
         new Introduction(element);
-        new SearchBar(element);
+        new FormFilter(element);
     }
 }
