@@ -152,6 +152,43 @@ export default class FormFilter {
                                         <option>Holo</option>
                                     </select>
                                 </div>
+                                <div class="col-3">
+                                    <label>Supertype</label>
+                                    <select class="form-control rarity" name="rarity">
+                                        <option selected>Default</option>
+                                        <option>Trainer</option>
+                                        <option>Pokemon</option>
+                                        <option>Energy</option>
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <label>Hp</label>
+                                    <select class="form-control rarity" name="rarity">
+                                        <option selected>Default</option>
+                                        <option>hp</option>
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <label>RetreatCost</label>
+                                    <select class="form-control rarity" name="rarity">
+                                        <option selected>Default</option>
+                                        <option>retreatCost</option>
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <label>Weaknesses</label>
+                                    <select class="form-control rarity" name="rarity">
+                                        <option selected>Default</option>
+                                        <option>weaknesses</option>
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <label>Resistances</label>
+                                    <select class="form-control rarity" name="rarity">
+                                        <option selected>Default</option>
+                                        <option>resistances</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </form>
