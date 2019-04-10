@@ -140,7 +140,7 @@ export default class FormFilter {
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-3 mb-5">
                                     <label>Type</label>
                                     <select class="form-control type" name="types">
                                         <option selected>Default</option>
