@@ -59,7 +59,14 @@ export default class FormFilter {
                 this.state.oldInputValue = searchInput.value;
                 this.reRenderCards(element, this.state.baseUrl);
             } else if (searchInput.value === "") {
-                this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?";
+                this.state.filtersList.length === 0 ? 
+                    this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?"
+                : this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?";
+                this.state.filtersList.map((object, index) => {
+                    index === 0 ?
+                        this.state.baseUrl += `${object.param}=${object.value}`
+                    :this.state.baseUrl += `&${object.param}=${object.value}`
+                });
                 this.reRenderCards(element, this.state.baseUrl);
             } else if (this.state.baseUrl.includes("name")) {
                 const newUrl = this.state.baseUrl.replace(this.state.oldInputValue, searchInput.value);
@@ -87,9 +94,22 @@ export default class FormFilter {
             el.addEventListener("change", () => {
                 
                 if (el.value === "Default") {
-                    this.state.filtersList.map(object => {
+                    this.state.filtersList.forEach((object, index) => {
                         if (object.param === el.name) {
-                            const newUrl = this.state.baseUrl.replace(`${object.param}=${object.value}`, "");
+                            this.state.filtersList.splice(index, 1);
+                            this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?";
+                            this.state.filtersList.map((el, i) => {
+                                console.log(searchInput.value);
+                                if (searchInput.value !== "") {
+                                    this.state.baseUrl += `&${el.param}=${el.value}`;
+                                } else {
+                                    i === 0 ? 
+                                        this.state.baseUrl += `${el.param}=${el.value}`
+                                    : this.state.baseUrl += `&${el.param}=${el.value}`;
+                                }
+                            });
+                            this.reRenderCards(element, this.state.baseUrl);
+                            return null;
                         }
                     })
                 } else if (this.state.baseUrl.includes(el.name)) {
