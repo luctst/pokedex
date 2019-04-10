@@ -54,20 +54,16 @@ export default class FormFilter {
 
         searchInput.addEventListener('input', async () => {
             if (this.state.filtersList.length === 0 && searchInput.value !== "") {
-                //this.reRenderCards(element, `${this.state.baseUrl}name=${searchInput.value}`);
-                //console.log(`${this.state.baseUrl}name=${searchInput.value}`);
                 this.state.baseUrl = `https://api.pokemontcg.io/v1/cards?name=${searchInput.value}`;
-                console.log(this.state.baseUrl);
                 this.reRenderCards(element, this.state.baseUrl);
-                
-                
             } else if (searchInput.value === "") {
                 this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?";
                 this.reRenderCards(element, this.state.baseUrl);
             } else {
-                this.reRenderCards(element, `${this.state.baseUrl}&name=${searchInput.value}`); 
-                console.log(this.state.baseUrl);
-                
+                const oldUrl = this.state.baseUrl;
+                const nameParam = `&name=${searchInput.value}`;
+                this.state.baseUrl = `${oldUrl}${nameParam}`;
+                this.reRenderCards(element, this.state.baseUrl); 
             }
         });
     }
@@ -86,7 +82,6 @@ export default class FormFilter {
                     this.state.filtersList.map(object => {
                         if (object.param === el.name) {
                             const newUrl = this.state.baseUrl.replace(`${object.param}=${object.value}`, "");
-                            console.log(object, newUrl);
                         }
                     })
                 } else if (this.state.baseUrl.includes(el.name)) {
@@ -94,10 +89,7 @@ export default class FormFilter {
                         if (object.param === el.name) {
                             const newUrl = this.state.baseUrl.replace(object.value, el.value);
                             object.value = el.value;
-                            this.state.baseUrl = newUrl;
-                            console.log(searchInput.value);
-                            console.log(this.state.baseUrl);
-                            
+                            this.state.baseUrl = newUrl;    
                         }
                     })
 
@@ -109,12 +101,9 @@ export default class FormFilter {
                         if (this.state.baseUrl.includes(elInMap.param)) {
                             null;
                         } else if (index === 0 && searchInput.value !== "")  {
-                            this.state.baseUrl += `name=${searchInput.value}&${elInMap.param}=${elInMap.value}`;
-                            console.log(searchInput.value);
-                            console.log(this.state.baseUrl);
+                            this.state.baseUrl += `${elInMap.param}=${elInMap.value}`;
                         } else {
                             this.state.baseUrl += `&${elInMap.param}=${elInMap.value}`;
-                            console.log(this.state.baseUrl);
                         }
                     });
                     
