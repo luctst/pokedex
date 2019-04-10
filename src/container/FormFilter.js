@@ -53,15 +53,13 @@ export default class FormFilter {
         const searchInput = document.getElementById("myInput");
 
         searchInput.addEventListener('input', async () => {
-
             if (this.state.filtersList.length === 0 && searchInput.value !== "") {
                 this.reRenderCards(element, `${this.state.baseUrl}name=${searchInput.value}`);
             } else if (searchInput.value === "") {
                 this.reRenderCards(element, this.state.baseUrl);
             } else {
-                this.reRenderCards(element, `${this.state.baseUrl}&name=${searchInput.value}`);  
+                this.reRenderCards(element, `${this.state.baseUrl}&name=${searchInput.value}`); 
             }
-
         });
     }
   
@@ -70,6 +68,8 @@ export default class FormFilter {
      */
     applyFilter(element) {
         const getSelect = document.querySelectorAll("select");
+        const searchInput = document.getElementById("myInput");
+
 
         getSelect.forEach(el => {
             el.addEventListener("change", () => {
@@ -87,6 +87,9 @@ export default class FormFilter {
                             const newUrl = this.state.baseUrl.replace(object.value, el.value);
                             object.value = el.value;
                             this.state.baseUrl = newUrl;
+                            console.log(searchInput.value);
+                            console.log(this.state.baseUrl);
+                            
                         }
                     })
 
@@ -97,10 +100,13 @@ export default class FormFilter {
                     this.state.filtersList.map((elInMap, index) => {
                         if (this.state.baseUrl.includes(elInMap.param)) {
                             null;
-                        } else if (index === 0) {
-                            this.state.baseUrl += `${elInMap.param}=${elInMap.value}`;
+                        } else if (index === 0 && searchInput.value !== "")  {
+                            this.state.baseUrl += `name=${searchInput.value}&${elInMap.param}=${elInMap.value}`;
+                            console.log(searchInput.value);
+                            console.log(this.state.baseUrl);
                         } else {
                             this.state.baseUrl += `&${elInMap.param}=${elInMap.value}`;
+                            console.log(this.state.baseUrl);
                         }
                     });
                     
