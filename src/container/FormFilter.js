@@ -63,6 +63,7 @@ export default class FormFilter {
                 const oldUrl = this.state.baseUrl;
                 const nameParam = `&name=${searchInput.value}`;
                 this.state.baseUrl = `${oldUrl}${nameParam}`;
+                
                 this.reRenderCards(element, this.state.baseUrl); 
             }
         });
@@ -101,6 +102,8 @@ export default class FormFilter {
                         if (this.state.baseUrl.includes(elInMap.param)) {
                             null;
                         } else if (index === 0 && searchInput.value !== "")  {
+                            this.state.baseUrl += `&${elInMap.param}=${elInMap.value}`;
+                        } else if(index === 0 && searchInput.value === "") {
                             this.state.baseUrl += `${elInMap.param}=${elInMap.value}`;
                         } else {
                             this.state.baseUrl += `&${elInMap.param}=${elInMap.value}`;
