@@ -54,11 +54,20 @@ export default class FormFilter {
 
         searchInput.addEventListener('input', async () => {
             if (this.state.filtersList.length === 0 && searchInput.value !== "") {
-                this.reRenderCards(element, `${this.state.baseUrl}name=${searchInput.value}`);
+                //this.reRenderCards(element, `${this.state.baseUrl}name=${searchInput.value}`);
+                //console.log(`${this.state.baseUrl}name=${searchInput.value}`);
+                this.state.baseUrl = `https://api.pokemontcg.io/v1/cards?name=${searchInput.value}`;
+                console.log(this.state.baseUrl);
+                this.reRenderCards(element, this.state.baseUrl);
+                
+                
             } else if (searchInput.value === "") {
+                this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?";
                 this.reRenderCards(element, this.state.baseUrl);
             } else {
                 this.reRenderCards(element, `${this.state.baseUrl}&name=${searchInput.value}`); 
+                console.log(this.state.baseUrl);
+                
             }
         });
     }
@@ -69,7 +78,6 @@ export default class FormFilter {
     applyFilter(element) {
         const getSelect = document.querySelectorAll("select");
         const searchInput = document.getElementById("myInput");
-
 
         getSelect.forEach(el => {
             el.addEventListener("change", () => {
@@ -133,7 +141,7 @@ export default class FormFilter {
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-3 mb-5">
                                     <label>Type</label>
                                     <select class="form-control type" name="types">
                                         <option selected>Default</option>
@@ -160,7 +168,7 @@ export default class FormFilter {
                                 </div>
                                 <div class="col-3">
                                     <label>Supertype</label>
-                                    <select class="form-control rarity" name="rarity">
+                                    <select class="form-control rarity" name="supertype">
                                         <option selected>Default</option>
                                         <option>Trainer</option>
                                         <option>Pokemon</option>
@@ -169,28 +177,28 @@ export default class FormFilter {
                                 </div>
                                 <div class="col-3">
                                     <label>Hp</label>
-                                    <select class="form-control rarity" name="rarity">
+                                    <select class="form-control rarity" name="hp">
                                         <option selected>Default</option>
                                         <option>hp</option>
                                     </select>
                                 </div>
                                 <div class="col-3">
                                     <label>RetreatCost</label>
-                                    <select class="form-control rarity" name="rarity">
+                                    <select class="form-control rarity" name="retreatCost">
                                         <option selected>Default</option>
                                         <option>retreatCost</option>
                                     </select>
                                 </div>
                                 <div class="col-3">
                                     <label>Weaknesses</label>
-                                    <select class="form-control rarity" name="rarity">
+                                    <select class="form-control rarity" name="weaknesses">
                                         <option selected>Default</option>
                                         <option>weaknesses</option>
                                     </select>
                                 </div>
                                 <div class="col-3">
                                     <label>Resistances</label>
-                                    <select class="form-control rarity" name="rarity">
+                                    <select class="form-control rarity" name="resistances">
                                         <option selected>Default</option>
                                         <option>resistances</option>
                                     </select>
