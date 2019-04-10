@@ -13,7 +13,8 @@ export default class FormFilter {
         this.pokemonData = [];
         this.state = {
             baseUrl: "https://api.pokemontcg.io/v1/cards?",
-            filtersList: []
+            filtersList: [],
+            oldInputValue: ""
         }
         this.render(element);
         this.initialCardsRender(element);
@@ -55,14 +56,21 @@ export default class FormFilter {
         searchInput.addEventListener('input', async () => {
             if (this.state.filtersList.length === 0 && searchInput.value !== "") {
                 this.state.baseUrl = `https://api.pokemontcg.io/v1/cards?name=${searchInput.value}`;
+                this.state.oldInputValue = searchInput.value;
                 this.reRenderCards(element, this.state.baseUrl);
             } else if (searchInput.value === "") {
                 this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?";
+                this.reRenderCards(element, this.state.baseUrl);
+            } else if (this.state.baseUrl.includes("name")) {
+                const newUrl = this.state.baseUrl.replace(this.state.oldInputValue, searchInput.value);
+                this.state.oldInputValue = searchInput.value;
+                this.state.baseUrl = newUrl;
                 this.reRenderCards(element, this.state.baseUrl);
             } else {
                 const oldUrl = this.state.baseUrl;
                 const nameParam = `&name=${searchInput.value}`;
                 this.state.baseUrl = `${oldUrl}${nameParam}`;
+                this.state.oldInputValue = searchInput.value;
                 this.reRenderCards(element, this.state.baseUrl); 
             }
         });
@@ -101,6 +109,8 @@ export default class FormFilter {
                         if (this.state.baseUrl.includes(elInMap.param)) {
                             null;
                         } else if (index === 0 && searchInput.value !== "")  {
+                            this.state.baseUrl += `&${elInMap.param}=${elInMap.value}`;
+                        } else if (index === 0 && searchInput.value === "") {
                             this.state.baseUrl += `${elInMap.param}=${elInMap.value}`;
                         } else {
                             this.state.baseUrl += `&${elInMap.param}=${elInMap.value}`;
