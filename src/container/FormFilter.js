@@ -13,7 +13,8 @@ export default class FormFilter {
         this.pokemonData = [];
         this.state = {
             baseUrl: "https://api.pokemontcg.io/v1/cards?",
-            filtersList: []
+            filtersList: [],
+            oldInputValue: ""
         }
         this.render(element);
         this.initialCardsRender(element);
@@ -55,15 +56,37 @@ export default class FormFilter {
         searchInput.addEventListener('input', async () => {
             if (this.state.filtersList.length === 0 && searchInput.value !== "") {
                 this.state.baseUrl = `https://api.pokemontcg.io/v1/cards?name=${searchInput.value}`;
+                this.state.oldInputValue = searchInput.value;
                 this.reRenderCards(element, this.state.baseUrl);
             } else if (searchInput.value === "") {
-                this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?";
+                // console.log(this.state.baseUrl);
+                // this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?";
+                // si longueur du tableau est vide === pas de filtre donc url de base
+                // Si input vide et tableau de filtres différent de 0 alors renvoie l'url sans le nom et avec filtres
+                //this.reRenderCards(element, this.state.baseUrl);
+
+                this.state.filtersList.length === 0 ? 
+                this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?" : this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?";
+                this.state.filtersList.map((object, index) => {
+                    if (index === 0) {
+                        this.state.baseUrl += `${object.param}=${object.value}`;
+                    } else {
+                        this.state.baseUrl += `&${object.param}=${object.value}`;
+                    }
+                });
+                this.reRenderCards(element, this.state.baseUrl);
+                
+            } else if (this.state.baseUrl.includes("name")) {
+                const newUrl = this.state.baseUrl.replace(this.state.oldInputValue, searchInput.value);
+                this.state.oldInputValue = searchInput.value;
+                this.state.baseUrl = newUrl;
                 this.reRenderCards(element, this.state.baseUrl);
             } else {
                 const oldUrl = this.state.baseUrl;
                 const nameParam = `&name=${searchInput.value}`;
                 this.state.baseUrl = `${oldUrl}${nameParam}`;
-                
+
+                this.state.oldInputValue = searchInput.value;
                 this.reRenderCards(element, this.state.baseUrl); 
             }
         });
@@ -78,11 +101,47 @@ export default class FormFilter {
 
         getSelect.forEach(el => {
             el.addEventListener("change", () => {
+                console.log(this.state.filtersList);
                 
-                if (el.value === "Default") {
-                    this.state.filtersList.map(object => {
+                if (el.value === "Default") {                    
+                    this.state.filtersList.map((object, index) => {
                         if (object.param === el.name) {
-                            const newUrl = this.state.baseUrl.replace(`${object.param}=${object.value}`, "");
+                            // Choper le filtre en question
+                            //const newUrl = this.state.baseUrl.replace(`${object.param}=${object.value}`, "");
+                            // delete du tab filterList
+                            // this.state.filtersList.splice(index, 1);
+                            // console.log(this.state.filtersList);
+                            //  Looper tab (cf: Ligne 137) update
+                            // this.state.filtersList.map(filter => {
+                            //     console.log(filter.param)
+                            //     console.log(filter.value)
+                            //     const filterParam = filter.param
+                            //     const filtervalue = filter.value
+                                
+                            //     this.reRenderCards(element, `https://api.pokemontcg.io/v1/cards?${filterParam}=${filtervalue}`);
+                            // })
+
+
+                            this.state.filtersList.forEach((object, index) => {
+                                if (object.param === el.name) {
+                                    this.state.filtersList.splice(index, 1);
+                                    this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?";
+                                    // Si input est vide
+                                    // si input pas vide alors on ajoute les filtres un par un 
+                                    this.state.filtersList.map((el, i) => {
+                                        // i === 0 ?
+                                        //     this.state.baseUrl += `${el.param}=${el.value}`
+                                        //     : this.state.baseUrl += `&${el.param}=${el.value}`;
+                                        if (searchInput.value === '') {
+                                            this.state.baseUrl += `${el.param}=${el.value}`;
+                                        } else if (searchInput.value !== '') {
+                                            this.state.baseUrl += `&${el.param}=${el.value}`;
+                                        }
+                                    });
+                                    this.reRenderCards(element, this.state.baseUrl);
+                                    return null;
+                                }
+                            })                            
                         }
                     })
                 } else if (this.state.baseUrl.includes(el.name)) {
@@ -103,7 +162,7 @@ export default class FormFilter {
                             null;
                         } else if (index === 0 && searchInput.value !== "")  {
                             this.state.baseUrl += `&${elInMap.param}=${elInMap.value}`;
-                        } else if(index === 0 && searchInput.value === "") {
+                        } else if (index === 0 && searchInput.value === "") {
                             this.state.baseUrl += `${elInMap.param}=${elInMap.value}`;
                         } else {
                             this.state.baseUrl += `&${elInMap.param}=${elInMap.value}`;
