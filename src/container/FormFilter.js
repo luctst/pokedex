@@ -104,7 +104,7 @@ export default class FormFilter {
                             this.state.filtersList.map((el, i) => {
                                 console.log(searchInput.value);
                                 if (searchInput.value !== "") {
-                                    this.state.baseUrl += `&${el.param}=${el.value}`;
+                                    this.state.baseUrl += `name=${searchInput.value}&${el.param}=${el.value}`;
                                 } else {
                                     i === 0 ? 
                                         this.state.baseUrl += `${el.param}=${el.value}`
