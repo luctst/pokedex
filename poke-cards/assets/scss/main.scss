@@ -1,0 +1,16 @@
+@import "./helper/variables";
+@import "./components/pokeCards";
+@import "./components/cards";
+@import "./components/searchBar";
+@import "./components/filters";
+@import "./components/footer";
+@import "./components/loader";
+
+
+h1 {
+    color: $black-title;
+}
+
+.introduction p {
+    opacity: 0.8;
+}

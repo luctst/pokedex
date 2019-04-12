@@ -1,0 +1,17 @@
+.section--cards {
+    margin-bottom: 10%;
+    
+    .poke--cards {
+        flex: 0 0 25%;
+        margin: 10px 0px;
+    }
+
+    .card--picture {
+        transition-duration: .3s;
+        transition-property: transform;
+    }
+    .card--picture:hover {
+        transform: scale(1.1);
+    }
+}
+
