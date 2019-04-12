@@ -6,7 +6,7 @@ import React, {useEffect, useState} from "react";
 /**
  * Render the moves from a specific Pokemon
  */
-export const PokeMove = props => {
+const PokeMove = props => {
     const [state, setState] = useState({ pokemonData: null, dataFetched: false });
 
     useEffect(() => {
@@ -54,3 +54,5 @@ export const PokeMove = props => {
         </>
     );
 }
+
+export default PokeMove;

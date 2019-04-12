@@ -3,20 +3,19 @@
  */
 const path = require("path");
 const extractCss = require("mini-css-extract-plugin");
-const html = require("html-webpack-plugin");
 
 /**
  * Export
  */
 module.exports = {
     mode: "development",
-    entry: path.resolve(__dirname, "src", "index.js"),
+    entry: path.resolve(__dirname, "pokedex", "index.js"),
     output: {
-        path: path.resolve(__dirname, "public"),
+        path: path.resolve(__dirname, "docs", "pokedex"),
         filename: "bundle.js"
     },
     devServer: {
-        contentBase: path.resolve(__dirname, "public"),
+        contentBase: path.resolve(__dirname, "pokedex", "webpack-server"),
         compress: true,
         port: 8080,
         open: true,
@@ -49,8 +48,5 @@ module.exports = {
         new extractCss({
             filename: "style.css"
         }),
-        new html({
-            template: "./src/index.html"
-        }),
-    ],
+    ]
 };

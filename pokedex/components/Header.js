@@ -6,7 +6,7 @@ import React from "react";
 /**
  * Render the Header of the app.
  */
-export const Header = () => {
+const Header = () => {
     return(
         <header className="container mb-3">
             <div className="row">
@@ -18,3 +18,5 @@ export const Header = () => {
         </header>
     );
 }
+
+export default Header;

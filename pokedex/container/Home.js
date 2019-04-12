@@ -2,8 +2,9 @@
  * Import, Variables
  */
 import React, {useState, useEffect} from "react";
+import Header from "../components/Header";
 import {PokeList} from "../components/PokeList";
-import { getData } from "../../actions/helper";
+import { getData } from "../actions/helper";
 const initialState = {
     pokemonData: [],
     dataFetched: false
@@ -12,7 +13,7 @@ const initialState = {
 /**
  * Searchbar to find a pokemon
  */
-export const Home = () => {
+const Home = () => {
     const [pokeList, setPokeList] = useState(initialState);
     const [list, setShowList] = useState({show: true});
 
@@ -39,6 +40,7 @@ export const Home = () => {
 
     return (
         <>
+            <Header/>
             <section className="container mb-3">
                 <div className="row">
                     <div className="col-12 searchbar">
@@ -59,3 +61,5 @@ export const Home = () => {
         </>
     );
 }
+
+export default Home;

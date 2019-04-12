@@ -7,7 +7,7 @@ export const Context = React.createContext();
 /**
  * Défine the GlobalStore used by our app components with React.createContext().
  */
-export class GlobalStore extends React.Component {
+export default class GlobalStore extends React.Component {
     constructor(props) {
         super(props);
         this.state = {}
