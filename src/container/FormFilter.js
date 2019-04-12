@@ -5,6 +5,7 @@ import PokeCards from "../components/PokeCards";
 import {getData} from "../actions/helper";
 import Footer from "../components/Footer";
 
+
 /**
  * Render the searchBar component.
  */
@@ -123,7 +124,6 @@ export default class FormFilter {
                             this.state.baseUrl = newUrl;    
                         }
                     })
-
                     this.reRenderCards(element, this.state.baseUrl);
                 } else {
                     this.state.filtersList.push({param: el.name, value: el.value});
@@ -201,28 +201,75 @@ export default class FormFilter {
                                     <label>Hp</label>
                                     <select class="form-control rarity" name="hp">
                                         <option selected>Default</option>
-                                        <option>hp</option>
+                                        <option>10</option>
+                                        <option>20</option>
+                                        <option>30</option>
+                                        <option>40</option>
+                                        <option>50</option>
+                                        <option>60</option>
+                                        <option>70</option>
+                                        <option>80</option>
+                                        <option>90</option>
+                                        <option>100</option>
+                                        <option>110</option>
+                                        <option>120</option>
+                                        <option>130</option>
+                                        <option>140</option>
+                                        <option>150</option>
+                                        <option>160</option>
+                                        <option>170</option>
+                                        <option>180</option>
+                                        <option>190</option>
+                                        <option>200</option>
+                                        <option>210</option>
+                                        <option>220</option>
+                                        <option>230</option>
+                                        <option>240</option>
+                                        <option>250</option>
                                     </select>
                                 </div>
                                 <div class="col-3">
                                     <label>RetreatCost</label>
                                     <select class="form-control rarity" name="retreatCost">
                                         <option selected>Default</option>
-                                        <option>retreatCost</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
                                     </select>
                                 </div>
                                 <div class="col-3">
                                     <label>Weaknesses</label>
                                     <select class="form-control rarity" name="weaknesses">
                                         <option selected>Default</option>
-                                        <option>weaknesses</option>
+                                        <option>Fire</option>
+                                        <option>Water</option>
+                                        <option>Fighting</option>
+                                        <option>Psychic</option>
+                                        <option>Dragon</option>
+                                        <option>Colorless</option>
+                                        <option>Fairy</option>
+                                        <option>Grass</option>
+                                        <option>Metal</option>
+                                        <option>Lightning</option>
                                     </select>
                                 </div>
                                 <div class="col-3">
                                     <label>Resistances</label>
                                     <select class="form-control rarity" name="resistances">
                                         <option selected>Default</option>
-                                        <option>resistances</option>
+                                        <option>Fire</option>
+                                        <option>Water</option>
+                                        <option>Fighting</option>
+                                        <option>Psychic</option>
+                                        <option>Dragon</option>
+                                        <option>Colorless</option>
+                                        <option>Fairy</option>
+                                        <option>Grass</option>
+                                        <option>Metal</option>
+                                        <option>Lightning</option>
                                     </select>
                                 </div>
                             </div>
