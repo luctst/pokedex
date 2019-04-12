@@ -1,3 +1,4 @@
+import Loader from "./Loader";
 /**
  * Render the pokemon cards.
  */
@@ -10,7 +11,7 @@ export default class PokeCards {
         if (document.querySelector(".section--cards")) {
             const cardSection = document.querySelector(".section--cards");
             cardSection.innerHTML = "";
-
+            
             if (pokemonArr.length === 0) {
                 const p = document.createElement("p");
                 p.textContent = "No pokemon for this research..";
@@ -29,6 +30,10 @@ export default class PokeCards {
         } else {
             const cardsSection = document.createElement('section');
             cardsSection.setAttribute("class", "container-fluid d-flex flex-wrap mt-5 section--cards");
+
+            if (cardsSection === '') {
+                new Loader(element);
+            } else {
     
             pokemonArr.map(el => {
             const pokeCards = document.createElement('div');
@@ -40,6 +45,7 @@ export default class PokeCards {
             });
     
             element.appendChild(cardsSection);
+            }
         }
     }
 }
