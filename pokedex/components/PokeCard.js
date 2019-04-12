@@ -3,7 +3,7 @@
  */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {getData} from "../../actions/helper";
+import {getData} from "../actions/helper";
 const style = {
     "marginRight": "1%"
 }
@@ -11,7 +11,7 @@ const style = {
 /**
  * Render the pokemon card with data on it.
  */
-export const PokeCard = props => {
+const PokeCard = props => {
     const [state, setState] = useState({ pokemonData: null, dataFetched: false });
     const [location, setLocation] = useState({locationData: {}, locationFetched: false});
     
@@ -34,30 +34,21 @@ export const PokeCard = props => {
         switch (el.type.name) {
             case "fire":
                 return <span key={i} className="badge badge-pill badge-danger">{el.type.name}</span>;
-                break;
             case "flying":
                 return <span key={i} className="badge badge-pill badge-light">{el.type.name}</span>;
-                break;
             case "electric":
                 return <span key={i} className="badge badge-pill badge-warning">{el.type.name}</span>;
-                break;
             case "water":
                 return <span key={i} className="badge badge-pill badge-primary">{el.type.name}</span>;
-                break;
             case "poison":
                 return <span key={i} className="badge badge-pill badge-secondary">{el.type.name}</span>;
-                break;
             case "psychic":
                 return <span key={i} className="badge badge-pill badge-dark">{el.type.name}</span>;
-                break;
             case "grass":
                 return <span key={i} className="badge badge-pill badge-success">{el.type.name}</span>;
-                break;
             case "dragon":
                 return <span key={i} className="badge badge-pill badge-primary">{el.type.name}</span>;
-                break;
             default:
-                break;
         }
     };
 
@@ -133,3 +124,5 @@ export const PokeCard = props => {
         </section>
     );
 };
+
+export default PokeCard;
