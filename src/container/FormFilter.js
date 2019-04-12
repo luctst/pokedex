@@ -2,8 +2,9 @@
  * Import, variables
  */
 import PokeCards from "../components/PokeCards";
-import {getData} from "../actions/helper";
+import { getData } from "../actions/helper";
 import Footer from "../components/Footer";
+import RenderFilters from "../components/RenderFilters";
 
 
 /**
@@ -17,7 +18,7 @@ export default class FormFilter {
             filtersList: [],
             oldInputValue: ""
         }
-        this.render(element);
+        new RenderFilters(element);
         this.initialCardsRender(element);
         this.filterByName(element);
         this.applyFilter(element);
@@ -60,16 +61,16 @@ export default class FormFilter {
                 this.state.oldInputValue = searchInput.value;
                 this.reRenderCards(element, this.state.baseUrl);
             } else if (searchInput.value === "") {
-                this.state.filtersList.length === 0 ? 
+                this.state.filtersList.length === 0 ?
                     this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?"
                     : this.state.baseUrl = "https://api.pokemontcg.io/v1/cards?";
                 this.state.filtersList.map((object, index) => {
                     index === 0 ?
                         this.state.baseUrl += `${object.param}=${object.value}`
-                    :this.state.baseUrl += `&${object.param}=${object.value}`
+                        : this.state.baseUrl += `&${object.param}=${object.value}`
                 });
                 this.reRenderCards(element, this.state.baseUrl);
-                
+
             } else if (this.state.baseUrl.includes("name")) {
                 const newUrl = this.state.baseUrl.replace(this.state.oldInputValue, searchInput.value);
                 this.state.oldInputValue = searchInput.value;
@@ -79,13 +80,12 @@ export default class FormFilter {
                 const oldUrl = this.state.baseUrl;
                 const nameParam = `&name=${searchInput.value}`;
                 this.state.baseUrl = `${oldUrl}${nameParam}`;
-
                 this.state.oldInputValue = searchInput.value;
-                this.reRenderCards(element, this.state.baseUrl); 
+                this.reRenderCards(element, this.state.baseUrl);
             }
         });
     }
-  
+
     /**
      * Apply filter and reRender cards with the filters.
      */
@@ -96,7 +96,7 @@ export default class FormFilter {
         getSelect.forEach(el => {
             el.addEventListener("change", () => {
                 console.log(this.state.filtersList);
-                
+
                 if (el.value === "Default") {
                     this.state.filtersList.forEach((object, index) => {
                         if (object.param === el.name) {
@@ -107,9 +107,9 @@ export default class FormFilter {
                                 if (searchInput.value !== "") {
                                     this.state.baseUrl += `name=${searchInput.value}&${el.param}=${el.value}`;
                                 } else {
-                                    i === 0 ? 
+                                    i === 0 ?
                                         this.state.baseUrl += `${el.param}=${el.value}`
-                                    : this.state.baseUrl += `&${el.param}=${el.value}`;
+                                        : this.state.baseUrl += `&${el.param}=${el.value}`;
                                 }
                             });
                             this.reRenderCards(element, this.state.baseUrl);
@@ -121,17 +121,17 @@ export default class FormFilter {
                         if (object.param === el.name) {
                             const newUrl = this.state.baseUrl.replace(object.value, el.value);
                             object.value = el.value;
-                            this.state.baseUrl = newUrl;    
+                            this.state.baseUrl = newUrl;
                         }
                     })
                     this.reRenderCards(element, this.state.baseUrl);
                 } else {
-                    this.state.filtersList.push({param: el.name, value: el.value});
-                    
+                    this.state.filtersList.push({ param: el.name, value: el.value });
+
                     this.state.filtersList.map((elInMap, index) => {
                         if (this.state.baseUrl.includes(elInMap.param)) {
                             null;
-                        } else if (index === 0 && searchInput.value !== "")  {
+                        } else if (index === 0 && searchInput.value !== "") {
                             this.state.baseUrl += `&${elInMap.param}=${elInMap.value}`;
                         } else if (index === 0 && searchInput.value === "") {
                             this.state.baseUrl += `${elInMap.param}=${elInMap.value}`;
@@ -139,144 +139,10 @@ export default class FormFilter {
                             this.state.baseUrl += `&${elInMap.param}=${elInMap.value}`;
                         }
                     });
-                    
+
                     this.reRenderCards(element, this.state.baseUrl);
                 }
             });
         });
-    }
-
-    /**
-    * Render the searchbar and the icon filter
-    * @param {HTMLElement} element === the previous html element which is render.
-    */
-    render(element) {
-        const searchBar = document.createElement("section");
-        searchBar.setAttribute('class', 'container-fluid search--bar');
-
-        searchBar.innerHTML = `
-            <div class="row">
-                <div class="col-8">
-                    <form>
-                        <div class="form-group">
-                            <input id="myInput" placeholder="Search by name" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-3 mb-5">
-                                    <label>Type</label>
-                                    <select class="form-control type" name="types">
-                                        <option selected>Default</option>
-                                        <option>Fire</option>
-                                        <option>Water</option>
-                                        <option>Fighting</option>
-                                        <option>Psychic</option>
-                                        <option>Dragon</option>
-                                        <option>Colorless</option>
-                                        <option>Fairy</option>
-                                        <option>Grass</option>
-                                        <option>Metal</option>
-                                        <option>Lightning</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <label>Rarity</label>
-                                    <select class="form-control rarity" name="rarity">
-                                        <option selected>Default</option>
-                                        <option>Rare</option>
-                                        <option>Common</option>
-                                        <option>Holo</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <label>Supertype</label>
-                                    <select class="form-control rarity" name="supertype">
-                                        <option selected>Default</option>
-                                        <option>Trainer</option>
-                                        <option>Pokemon</option>
-                                        <option>Energy</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <label>Hp</label>
-                                    <select class="form-control rarity" name="hp">
-                                        <option selected>Default</option>
-                                        <option>10</option>
-                                        <option>20</option>
-                                        <option>30</option>
-                                        <option>40</option>
-                                        <option>50</option>
-                                        <option>60</option>
-                                        <option>70</option>
-                                        <option>80</option>
-                                        <option>90</option>
-                                        <option>100</option>
-                                        <option>110</option>
-                                        <option>120</option>
-                                        <option>130</option>
-                                        <option>140</option>
-                                        <option>150</option>
-                                        <option>160</option>
-                                        <option>170</option>
-                                        <option>180</option>
-                                        <option>190</option>
-                                        <option>200</option>
-                                        <option>210</option>
-                                        <option>220</option>
-                                        <option>230</option>
-                                        <option>240</option>
-                                        <option>250</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <label>RetreatCost</label>
-                                    <select class="form-control rarity" name="retreatCost">
-                                        <option selected>Default</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <label>Weaknesses</label>
-                                    <select class="form-control rarity" name="weaknesses">
-                                        <option selected>Default</option>
-                                        <option>Fire</option>
-                                        <option>Water</option>
-                                        <option>Fighting</option>
-                                        <option>Psychic</option>
-                                        <option>Dragon</option>
-                                        <option>Colorless</option>
-                                        <option>Fairy</option>
-                                        <option>Grass</option>
-                                        <option>Metal</option>
-                                        <option>Lightning</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <label>Resistances</label>
-                                    <select class="form-control rarity" name="resistances">
-                                        <option selected>Default</option>
-                                        <option>Fire</option>
-                                        <option>Water</option>
-                                        <option>Fighting</option>
-                                        <option>Psychic</option>
-                                        <option>Dragon</option>
-                                        <option>Colorless</option>
-                                        <option>Fairy</option>
-                                        <option>Grass</option>
-                                        <option>Metal</option>
-                                        <option>Lightning</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>`;
-        element.appendChild(searchBar);
     }
 }

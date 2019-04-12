@@ -8,7 +8,7 @@ export default class RenderPkmn {
      * @param {HTMLElement} el === The root div
      * @param {Array} data === The pokemon cards's array 
      */
-    renderPkmn(el, data) {                     
+    renderPkmn(el, data) {
         el.innerHTML = `
         <header class="container-fluid">
             <div class="row">
@@ -41,18 +41,18 @@ export default class RenderPkmn {
         /**
          * @param {Loop}  === Function which loop on the Object in attacks
          */
-        
+
         data.cards[0].attacks.map(el => {
             for (const i in el) {
                 const htmlP = document.querySelector('.render--attacks');
                 const p = document.createElement('p');
                 switch (i) {
-                    case "name": 
-                       p.innerHTML = `<span class="cost">${el.cost}</span> || ${el[i]} || ${el.damage}`;
-                       p.setAttribute("class", "p--name");
-                       htmlP.appendChild(p);
+                    case "name":
+                        p.innerHTML = `<span class="cost">${el.cost}</span> || ${el[i]} || ${el.damage}`;
+                        p.setAttribute("class", "p--name");
+                        htmlP.appendChild(p);
                         break;
-                    case "text": 
+                    case "text":
                         p.textContent = `${el[i]} `;
                         p.setAttribute("class", "p--text");
                         htmlP.appendChild(p);

@@ -11,7 +11,7 @@ export default class PokeCards {
         if (document.querySelector(".section--cards")) {
             const cardSection = document.querySelector(".section--cards");
             cardSection.innerHTML = "";
-            
+
             if (pokemonArr.length === 0) {
                 const p = document.createElement("p");
                 p.textContent = "No pokemon for this research..";
@@ -20,9 +20,7 @@ export default class PokeCards {
                 pokemonArr.map(el => {
                     const pokeCards = document.createElement('div');
                     pokeCards.setAttribute("class", "poke--cards");
-    
                     pokeCards.innerHTML = `<a class="card-link" href="${window.location.href}cards?id=${el.id}"><img class="card--picture" src="${el.imageUrl}"></a>`;
-    
                     cardSection.appendChild(pokeCards);
                 });
             }
@@ -34,17 +32,13 @@ export default class PokeCards {
             if (cardsSection === '') {
                 new Loader(element);
             } else {
-    
-            pokemonArr.map(el => {
-            const pokeCards = document.createElement('div');
-            pokeCards.setAttribute("class", "poke--cards");
-
-            pokeCards.innerHTML = `<a class="card-link" href="${window.location.href}cards?id=${el.id}"><img class="card--picture" src="${el.imageUrl}"></a>`;
-
-            cardsSection.appendChild(pokeCards);
-            });
-    
-            element.appendChild(cardsSection);
+                pokemonArr.map(el => {
+                    const pokeCards = document.createElement('div');
+                    pokeCards.setAttribute("class", "poke--cards");
+                    pokeCards.innerHTML = `<a class="card-link" href="${window.location.href}cards?id=${el.id}"><img class="card--picture" src="${el.imageUrl}"></a>`;
+                    cardsSection.appendChild(pokeCards);
+                });
+                element.appendChild(cardsSection);
             }
         }
     }
