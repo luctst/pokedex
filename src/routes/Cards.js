@@ -4,6 +4,7 @@
 import { getData } from "../actions/helper";
 import RenderPkmn from "../components/RenderPkmn";
 import RenderTrainer from "../components/RenderTrainer";
+import RenderEnergy from "../components/RenderEnergy";
 /**
 * Render the /cards component. 
 */
@@ -35,10 +36,12 @@ export default class Cards {
             el.appendChild(section);
         } else {
             if (dataParsed.cards[0].supertype === "Pokémon") {
-                new RenderPkmn(el, dataParsed);
+                new RenderPkmn(el, dataParsed);  
+            } else if (dataParsed.cards[0].supertype === "Energy") {
+                new RenderEnergy(el, dataParsed);
             } else {
-                new RenderTrainer(el, dataParsed);
-            }
+                 new RenderTrainer(el, dataParsed);
+             }
         }
     }
 }
