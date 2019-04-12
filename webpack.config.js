@@ -9,13 +9,13 @@ const extractCss = require("mini-css-extract-plugin");
  */
 module.exports = {
     mode: "development",
-    entry: path.resolve(__dirname, "src", "index.js"),
+    entry: path.resolve(__dirname, "pokedex", "index.js"),
     output: {
-        path: path.resolve(__dirname, "public"),
+        path: path.resolve(__dirname, "docs", "pokedex"),
         filename: "bundle.js"
     },
     devServer: {
-        contentBase: path.resolve(__dirname, "public"),
+        contentBase: path.resolve(__dirname, "pokedex", "webpack-server"),
         compress: true,
         port: 8080,
         open: true,
@@ -47,6 +47,6 @@ module.exports = {
     plugins: [
         new extractCss({
             filename: "style.css"
-        })
-    ],
+        }),
+    ]
 };

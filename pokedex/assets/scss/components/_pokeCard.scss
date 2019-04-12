@@ -1,0 +1,30 @@
+w/**
+* Desktop
+*/
+.pokeCard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    &--left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        span {
+            margin-left: 2%;
+        }
+
+        button {
+            width: 50%;
+        }
+    }
+
+    &--right {
+        width: 100%;
+
+        img {
+            width: inherit;
+            height: auto;
+        }
+    }
+}
