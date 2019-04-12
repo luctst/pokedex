@@ -3,7 +3,6 @@
  */
 const path = require("path");
 const extractCss = require("mini-css-extract-plugin");
-const html = require("html-webpack-plugin");
 
 /**
  * Export
