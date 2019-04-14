@@ -4,9 +4,12 @@
   "description": "Easily create your next web application 🐙 🐙",
   "main": "",
   "scripts": {
-    "test": "",
-    "build": "webpack --mode='production'",
-    "start": "webpack-dev-server"
+    "build-poke-cards": "webpack --env.filename=poke-cards --mode='production'",
+    "start-poke-cards": "webpack-dev-server --env.filename=poke-cards",
+    "build-pokedex": "webpack --env.filename=pokedex --mode='production'",
+    "start-pokedex": "webpack-dev-server --env.filename=pokedex",
+    "build-homepage": "webpack --env.filename=client --mode='production'",
+    "start-homepage": "webpack-dev-server --env.filename=client"
   },
   "repository": {
     "type": "git",
