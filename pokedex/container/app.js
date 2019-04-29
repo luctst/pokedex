@@ -2,7 +2,7 @@
  * Import, Variables
  */
 import React from "react";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import GlobalStore from "../store/GlobalStore";
 import Home from "./Home";
 import PokeCard from "../components/PokeCard";
@@ -15,9 +15,9 @@ export const App = () => {
     return (
         <Router>
             <GlobalStore>
-                <Route exact path="/" component={Home}/>
-                <Route exact path="/pokemon/:name" component={PokeCard} />
-                <Route exact path="/moves/:name" component={PokeMove} />
+                <Route exact path={["/", "/pokedex"]} component={Home}/>
+                <Route exact path={["/pokemon/:name", "/pokedex/pokemon/:name"]} component={PokeCard} />
+                <Route exact path={["/moves/:name", "/pokedex/moves/:name"]} component={PokeMove} />
             </GlobalStore>
         </Router>
     );
