@@ -1,0 +1,45 @@
+.searchbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  .searchbar input {
+    flex: 0 0 50%;
+    margin-right: 2%; }
+
+.pokeList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  .pokeList div {
+    margin-bottom: 2%;
+    flex: 0 0 15%; }
+
+w
+.pokeCard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); }
+  w
+.pokeCard--left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; }
+    w
+.pokeCard--left span {
+      margin-left: 2%; }
+    w
+.pokeCard--left button {
+      width: 50%; }
+  w
+.pokeCard--right {
+    width: 100%; }
+    w
+.pokeCard--right img {
+      width: inherit;
+      height: auto; }
+
+/**
+* Desktop
+*/
+.pokeMove span {
+  margin: 1%; }
+
