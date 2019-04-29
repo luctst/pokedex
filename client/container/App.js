@@ -1,8 +1,9 @@
+import switchScript from "../helper/switchScript";
 import Header from "../components/Header";
 import Projects from "../components/Projects";
 const projects = [
     {content: "Pokedex", description: "A pokedex with all pokemons generation's", link: "/pokedex"},
-    {content: "Poke-cards", description: "Test", link: "/poke-cards"}
+    {content: "Poke-cards", description: "A colllection of pokemon cards", link: "/poke-cards"}
 ]
 
 /**
@@ -10,8 +11,20 @@ const projects = [
  * @param {HTMLElement} root The HTML Element who render this function.
  */
 function App(root) {
-    new Header(root);
-    new Projects(root, projects);
+    switch (window.location.pathname) {
+        case "/":
+            new Header(root);
+            new Projects(root, projects);
+            break;
+        case "/poke-cards":
+            switchScript("poke-cards");
+            break;
+        case "/pokedex":
+            switchScript("pokedex");
+            break;
+        default:
+            break;
+    }
 }
 
 export default App;
