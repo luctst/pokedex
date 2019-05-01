@@ -12,14 +12,17 @@ const projects = [
  */
 function App(root) {
     switch (window.location.pathname) {
-        case `/` || "/pokedex/":
+        case `/`:
+        case "/pokedex/":
             new Header(root);
             new Projects(root, projects);
             break;
-        case "/poke-cards" || "/pokedex/poke-cards":
+        case "/poke-cards":
+        case "/pokedex/poke-cards":
             switchScript("poke-cards");
             break;
-        case "/pokedex" || "/pokedex/pokedex":
+        case "/pokedex":
+        case "/pokedex/pokedex":
             switchScript("pokedex");
             break;
         default:
