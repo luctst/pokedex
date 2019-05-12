@@ -1,10 +1,7 @@
 import switchScript from "../helper/switchScript";
 import Header from "../components/Header";
 import Projects from "../components/Projects";
-const projects = [
-    {content: "Pokedex", description: "A pokedex with all pokemons generation's", link: "/pokedex"},
-    {content: "Poke-cards", description: "A colllection of pokemon cards", link: "/poke-cards"}
-]
+import dataProjects from "../data.json";
 
 /**
  * The main component who hols all our view and logic of all components.
@@ -13,9 +10,9 @@ const projects = [
 function App(root) {
     switch (window.location.pathname) {
         case `/`:
-        case "/pokedex/":
+		case "/pokedex/":
             new Header(root);
-            new Projects(root, projects);
+            new Projects(root, dataProjects);
             break;
         case "/poke-cards":
         case "/pokedex/poke-cards":
