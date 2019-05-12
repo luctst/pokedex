@@ -1,0 +1,14 @@
+{
+	"projects": [
+		{
+			"content": "Pokedex",
+			"description": "A pokedex with all pokemons generation's",
+			"link": "/pokedex"
+		},
+		{
+			"content": "Poke-cards",
+			"description": "A colllection of pokemon cards",
+			"link": "/poke-cards"
+		}
+	]
+}
