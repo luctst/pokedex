@@ -19,10 +19,10 @@ Projects.prototype.render = function(element, data = []) {
                 <ul class="list-group"></ul>
             </div>
         </div>`;
-    
+
     element.appendChild(section);
-    
-    data.forEach(el => {
+
+    data.projects.forEach(el => {
         const li = document.createElement("li");
         li.setAttribute("class", "list-group-item mb-3");
 
