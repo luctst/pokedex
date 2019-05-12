@@ -1,8 +1,14 @@
 const extractCss = require("mini-css-extract-plugin");
-const clean = require("clean-webpack-plugin");
+const htmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = [
-    new extractCss({
-        filename: "style.css"
-    })
-]
+module.exports = filename => {
+	return [
+		new extractCss({
+			filename: "style.css"
+		}),
+		new htmlWebpackPlugin({
+			inject: true,
+			template: `${filename}/webpack-server/index.html`
+		})
+	]
+}
